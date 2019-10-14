@@ -14,44 +14,44 @@ Vue.use(Router)
 
 const router = new Router({
   routes: [
-   {
-     path:'/',
-     component: Home,
-     children:[
-       {
-         path:'films',
-         component:Films
-       },{
-         path:'cinemas',
-         component:Cinemas
-       },
-       {
-         path:'center',
-         component:Center
-       },
-       {
-         path:'',
-         redirect:'/films'
-       }
+    {
+      path: '/',
+      component: Home,
+      children: [
+        {
+          path: 'films',
+          component: Films
+        }, {
+          path: 'cinemas',
+          component: Cinemas
+        },
+        {
+          path: 'center',
+          component: Center
+        },
+        {
+          path: '',
+          redirect: '/films'
+        }
 
-     ]
-   },
-   {
-     path:'/city',
-     component:City
-   },
-   {
-     path:'/film/:id',
-     component:FilmInfo
-   },
-   {
-     path:'/login',
-     component:Login
-   },
-   {
-     path:'/shopping',
-     component:Shopping
-   }
+      ]
+    },
+    {
+      path: '/city',
+      component: City
+    },
+    {
+      path: '/film/:id',
+      component: FilmInfo
+    },
+    {
+      path: '/login',
+      component: Login
+    },
+    {
+      path: '/shopping',
+      component: Shopping
+    }
   ]
 })
 export default router

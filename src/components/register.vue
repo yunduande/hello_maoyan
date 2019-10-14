@@ -34,6 +34,7 @@
      background:#df2d2d;
      text-align:center;
      border-radius:5px;
+     transform:
 
  }
 </style>

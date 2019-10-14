@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <form>
+<form>
 <input type="text/css" placeholder=" 账户名/手机号" class="form1"  max-length="8"/><br>
 <input type="password" placeholder="请输入你的密码" class="form2"/><br>
 <input type="submit" value="登录" class="btn"/>

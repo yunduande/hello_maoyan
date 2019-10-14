@@ -6,6 +6,6 @@
 </template>
 <script>
 export default {
-  name:'Film'
+  name: 'Film'
 }
 </script>

@@ -7,9 +7,6 @@
 <input type="submit" value="注册" class="btn"/>
 </form>
 
-
-
-
 </div>
 
 </template>

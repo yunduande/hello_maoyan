@@ -31,7 +31,7 @@
 import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'City',
-  data() {
+  data () {
     return {
       searchVal: ''
     }
@@ -43,16 +43,15 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }
 </script>
-
 
 <style lang='scss'>
 .page-city {

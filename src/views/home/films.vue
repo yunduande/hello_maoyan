@@ -51,7 +51,6 @@
   </div>
 </template>
 
-
 <script>
 import comingSoon from '../../components/comingSoon'
 import nowPlaying from '../../components/nowPlaying'
@@ -64,7 +63,7 @@ export default {
     comingSoon,
     nowPlaying
   },
-  data() {
+  data () {
     return {
       curFilmtype: 'nowPlaying'
     }
@@ -73,11 +72,11 @@ export default {
     /**
      * 切换当前的影片类型
      */
-    chgFilmtype(type) {
+    chgFilmtype (type) {
       this.curFilmtype = type
     }
   },
-  created() {
+  created () {
     axios
       .get('http://m.maoyan.com/ajax/movieOnInfoList?token=')
       .then(response => {

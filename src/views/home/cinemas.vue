@@ -52,34 +52,30 @@
 </template>
 <script>
 export default {
-  name:'Cinemes',
-  data(){
-       return{
-         serchVal:''
-       }
-     },
-  data(){
-     return{
-          value1: 0,
-          value2: 'a',
-          value3: 'A',
-          option1: [
-            { text: '全城', value: 0 },
-            { text: '新款商品', value: 1 },
-            { text: '活动商品', value: 2 },
-          ],
-          option2: [
-            { text: '品牌', value: 'a' },
-            { text: '好评排序', value: 'b' },
-            { text: '销量排序', value: 'c' },
-          ],
-          option3: [
-            { text: '特色', value: 'A' },
-            { text: '好评排序', value: 'B' },
-            { text: '销量排序', value: 'C' },
-          ],
+  name: 'Cinemes',
+  data () {
+    return {
+      serchVal: '',
+      value1: 0,
+      value2: 'a',
+      value3: 'A',
+      option1: [
+        { text: '全城', value: 0 },
+        { text: '新款商品', value: 1 },
+        { text: '活动商品', value: 2 }
+      ],
+      option2: [
+        { text: '品牌', value: 'a' },
+        { text: '好评排序', value: 'b' },
+        { text: '销量排序', value: 'c' }
+      ],
+      option3: [
+        { text: '特色', value: 'A' },
+        { text: '好评排序', value: 'B' },
+        { text: '销量排序', value: 'C' }
+      ]
 
-        }
+    }
   }
 
 }

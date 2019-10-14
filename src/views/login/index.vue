@@ -14,7 +14,7 @@
 
         <li  :class="{'active':tabType ==='register'}"  @click="chgType('register')">美团账号注册</li>
       </ul>
-     
+
       <div class="slide" :style="{'left':tabType==='login'? '0': '50%' }">
       <span></span>
       </div>
@@ -53,7 +53,7 @@ export default {
   height: 50px;
   line-height: 50px;
   text-align: center;
-  
+
   .nav-left {
     float: left;
     width: 50px;
@@ -74,7 +74,7 @@ export default {
 //登录界面
 
 .login {
-  
+
   background: #fff;
   position:relative;
 
@@ -99,9 +99,9 @@ export default {
     width:50%;
     position:absolute;
     bottom:0;
-  
-    
-  
+
+
+
     span{
 
       display:block;

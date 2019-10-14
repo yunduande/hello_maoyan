@@ -1,4 +1,5 @@
 <template>
+
   <div class="page-home">
    <!-- 一级路由页面，首页 -->
 
@@ -17,3 +18,15 @@
     </ul>
    </div>
 </template>
+<style lang="scss" >
+.page-home{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  > div:first-child{
+    flex:1;
+    overflow-y: auto;
+  }
+}
+</style>

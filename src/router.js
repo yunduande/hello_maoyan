@@ -28,6 +28,10 @@ const router = new Router({
        {
          path:'center',
          component:Center
+       },
+       {
+         path:'',
+         redirect:'/films'
        }
 
      ]

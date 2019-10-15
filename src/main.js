@@ -3,11 +3,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
-// 全局引入 vant
-import Vant from 'vant'
-import 'vant/lib/index.css'
+//????
+import { Search, NavBar, Toast } from 'vant'
+Vue.use(Search)
+  .use(NavBar)
+  .use(Toast)
 
-Vue.use(Vant)
+// 全局引入 vant
+// import Vant from 'vant'
+// import 'vant/lib/index.css'
+
+// Vue.use(Vant)
 
 Vue.config.productionTip = false
 

@@ -4,24 +4,13 @@
 
     <!-- 标题栏 -->
     <h1>猫眼电影</h1>
-    <!-- 头像 -->
-    <!-- <div class="header">
-      <div class="west">
-        <img src alt />
-        <div class="middle">
-          <h5>猫眼</h5>
-          <p>0元看电影，天天领现金</p>
-        </div>
-      </div>
-      <div class="east"></div>
-    </div>-->
 
     <div class="tabs">
       <!-- 城市选择 -->
-      <div class="left">
+      <router-link to="/city" class="left">
         城市
         <span class="iconfont iconxiajiantou_huaban"></span>
-      </div>
+      </router-link>
       <!-- tabs 切换 -->
       <ul>
         <!-- 这时active是写死的，我们想办法让她和什么变化的东西联系起来 -->
@@ -37,16 +26,6 @@
       </div>
     </div>
 
-    <!-- 电影列表 -->
-    <!-- <div class="list">
-      <img src alt />
-      <div class="details">
-        <h3></h3>
-        <p></p>
-        <p></p>
-        <p></p>
-      </div>
-    </div>-->
     <component :is="curFilmtype" />
   </div>
 </template>
@@ -54,8 +33,6 @@
 <script>
 import comingSoon from '../../components/comingSoon'
 import nowPlaying from '../../components/nowPlaying'
-// import "../../assets/styles/common/mixins.scss"
-import axios from 'axios'
 
 export default {
   name: 'Films',
@@ -63,7 +40,7 @@ export default {
     comingSoon,
     nowPlaying
   },
-  data () {
+  data() {
     return {
       curFilmtype: 'nowPlaying'
     }
@@ -72,22 +49,16 @@ export default {
     /**
      * 切换当前的影片类型
      */
-    chgFilmtype (type) {
+    chgFilmtype(type) {
       this.curFilmtype = type
     }
-  },
-  created () {
-    axios
-      .get('http://m.maoyan.com/ajax/movieOnInfoList?token=')
-      .then(response => {
-        let result = response.data
-        console.log(result)
-      })
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import '../../assets/styles/common/mixins.scss';
+
 html,
 body {
   height: 100%;
@@ -95,19 +66,27 @@ body {
 .page-city-films {
   // 标题
   h1 {
+    // @include border-cinemas;
+
     height: 52px;
     background: #f03d37;
     color: #fff;
     font-size: 18px;
     line-height: 52px;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
   }
 
   // tabs 的切换
   .tabs {
     height: 44px;
     display: flex;
-
+    position: sticky;
+    top: 52px;
+    background: #fff;
+    z-index: 999;
     ul {
       flex: 1;
       display: flex;

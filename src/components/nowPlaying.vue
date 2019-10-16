@@ -2,24 +2,19 @@
   <div class="film-list">
     <!-- <h2>正在热映</h2> -->
     <ul>
-      <li>
+      <li v-for="item in filmList" :key="item.id">
         <div class="left">
-          <img
-            src="https://p0.meituan.net/128.180/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg"
-          />
+          <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
+          <img :src="item.img | formatImg " alt />
         </div>
         <div class="center">
-          <div class="name">中国机长</div>
+          <div class="name">{{ item.nm }}</div>
           <div class="grade">
             观众评分：
-            <span>9.6</span>
+            <span>{{ item.sc }}</span>
           </div>
-          <div class="actor">主演：张涵予、欧豪、杜江...</div>
-          <div class="show-info">
-            今天
-            {{336}}家影院放映
-            {{3799}}场
-          </div>
+          <div class="actor">主演：{{ item.star }}</div>
+          <div class="show-info">{{ item.showInfo }}</div>
         </div>
         <div class="right">
           <button>购票</button>
@@ -30,8 +25,34 @@
 </template>
 
 <script>
+// import axios from 'axios'
+import { mapState, mapActions } from 'vuex'
+
 export default {
-  name: 'Filmlists'
+  name: 'NowPlaying',
+  computed: {
+    ...mapState('film', ['filmList'])
+  },
+  filters: {
+    formatImg(value) {
+      return value.replace('w.h', '128.180')
+    }
+  },
+  methods: {
+    ...mapActions('film', ['getFilmList'])
+  },
+  // created() {
+  //   axios.get('/ajax/movieOnInfoList?token=').then(response => {
+  //     let result = response.data
+  //     // console.log(result)
+  //     let filmList = result.movieList
+  //     this.getFilmList()
+  //   })
+  // }
+  created() {
+    this.getFilmList()
+    console.log(this.$store)
+  }
 }
 </script>
 
@@ -39,9 +60,12 @@ export default {
 @import '../assets/styles/common/mixins.scss';
 
 .film-list {
+  // @include border-top;
   li {
+    position: relative;
+
     @include border-bottom;
-    background: yellow;
+    // background: yellow;
     height: 100%;
     display: flex;
     padding: 12px 0 15px 12px;
@@ -97,6 +121,9 @@ export default {
       height: 90px;
       display: flex;
       align-items: center;
+      position: absolute;
+      right: 33px;
+
       button {
         height: 27px;
         width: 47px;
@@ -105,6 +132,7 @@ export default {
         color: white;
         border: 1px solid #f03d37;
         border-radius: 3px;
+        font-size: 12px;
       }
     }
   }

@@ -21,9 +21,9 @@
         </div>
       </ul>
       <!-- 搜索 -->
-      <div class="right">
+      <router-link to="/search" class="right">
         <span class="iconfont iconsousu"></span>
-      </div>
+      </router-link>
     </div>
 
     <component :is="curFilmtype" />

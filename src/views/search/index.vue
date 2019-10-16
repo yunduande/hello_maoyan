@@ -2,7 +2,11 @@
   <div class="page-search">
     <!-- 一级路由页面，搜索列表页 -->
     <div class="nav">
-      <van-nav-bar title="猫眼电影" left-arrow @click="goBack" />
+      <van-nav-bar title="猫眼电影">
+        <template v-slot:left>
+          <i class="iconfont iconmjiantou-copy" @click="goBack"></i>
+        </template>
+      </van-nav-bar>
     </div>
     <div class="search-wrapper">
       <div class="search-header">
@@ -44,13 +48,14 @@ export default {
   .van-nav-bar {
     height: 52px;
     background: #e54847;
-    text-align: center;
-    line-height: 52px;
     .van-nav-bar__title {
       color: #fff;
+      line-height: 52px;
+      text-align: center;
       font-size: 18px;
     }
-    .van-icon-arrow-left:before {
+    .iconmjiantou-copy {
+      display: block;
       color: #fff;
       font-size: 30px;
     }

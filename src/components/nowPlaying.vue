@@ -5,7 +5,7 @@
       <li v-for="item in filmList" :key="item.id">
         <div class="left">
           <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
-          <img :src="item.img | formatImg" alt />
+          <img :src="item.img | formatImg " alt />
         </div>
         <div class="center">
           <div class="name">{{ item.nm }}</div>

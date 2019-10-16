@@ -33,7 +33,7 @@ export default {
   computed: {
     ...mapState('film', ['filmList'])
   },
-  filters: {
+   filters: {
     formatImg(value) {
       return value.replace('w.h', '128.180')
     }

@@ -1,6 +1,5 @@
 @mixin border-bottom {
   position: relative;
-
   &::after {
     content: '';
     position: absolute;
@@ -12,6 +11,20 @@
     transform: translateY(0.5);
   }
 }
+@mixin border-cinemas{
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    background: #ededed;
+    transform: translateY(0.5);
+  }
+}
+
 @mixin border-top {
   position: relative;
   &::before {

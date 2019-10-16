@@ -5,7 +5,7 @@
       <li v-for="item in filmList" :key="item.id">
         <div class="left">
           <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
-          <img :src="item.img" alt />
+          <img :src="item.img | formatImg" alt />
         </div>
         <div class="center">
           <div class="name">{{ item.nm }}</div>
@@ -17,7 +17,9 @@
           <div class="show-info">{{ item.showInfo }}</div>
         </div>
         <div class="right">
-          <button>购票</button>
+          <router-link to="/film/:id">
+            <button>购票</button>
+          </router-link>
         </div>
       </li>
     </ul>
@@ -32,6 +34,11 @@ export default {
   name: 'NowPlaying',
   computed: {
     ...mapState('film', ['filmList'])
+  },
+  filters: {
+    formatImg(value) {
+      return value.replace('w.h', '128.180')
+    }
   },
   methods: {
     ...mapActions('film', ['getFilmList'])

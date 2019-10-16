@@ -1,7 +1,14 @@
 <template>
   <div class="page-film">
     <!-- 一级路由页面，影片详情页 -->
-    <h1>我和我的祖国</h1>
+    <!-- <h1>我和我的祖国</h1> -->
+    <van-nav-bar title="我和我的祖国">
+      <template v-slot:left>
+        <i class="iconfont iconmjiantou-copy" @click="goBack"></i>
+      </template>
+    </van-nav-bar>
+
+    <!-- 背景图 -->
     <div class="banner">
       <!-- 左大半部分 -->
       <div class="left">
@@ -68,7 +75,12 @@
 
 <script>
 export default {
-  name: 'Film'
+  name: 'Film',
+  methods: {
+    goBack() {
+      this.$router.back()
+    }
+  }
 }
 </script>
 
@@ -78,13 +90,28 @@ export default {
 .page-film {
   background: yellow;
   height: 100%;
-  h1 {
+  // h1 {
+  //   height: 52px;
+  //   background: #f03d37;
+  //   color: #fff;
+  //   font-size: 18px;
+  //   line-height: 52px;
+  //   text-align: center;
+  // }
+  .van-nav-bar {
     height: 52px;
-    background: #f03d37;
-    color: #fff;
-    font-size: 18px;
-    line-height: 52px;
-    text-align: center;
+    background: #e54847;
+    .van-nav-bar__title {
+      color: #fff;
+      line-height: 52px;
+      text-align: center;
+      font-size: 18px;
+    }
+    .iconmjiantou-copy {
+      display: block;
+      color: #fff;
+      font-size: 30px;
+    }
   }
 
   // 背景图
@@ -111,8 +138,8 @@ export default {
         margin-left: 12px;
       }
     }
-    .right {
-    }
+    // .right {
+    // }
   }
   // 上映时间
   .date {

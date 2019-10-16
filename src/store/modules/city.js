@@ -7,8 +7,17 @@ export default {
     cities: [] // 所有城市的集合
   },
   getters: {
-    cityList (state) {
+    cityList(state) {
       let res = []
+      let hot = []
+      state.cities.forEach(city => {
+        let hotCity = city.isHot
+        if (hotCity > 0) {
+          hot.push(hotCity)
+          console.log(hotCity)
+        }
+      })
+
       state.cities.forEach(city => {
         let py = city.pinyin.charAt(0).toUpperCase()
         let index = res.findIndex(item => item.py === py)
@@ -26,17 +35,17 @@ export default {
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
-    pys (status, getters) {
+    pys(status, getters) {
       return getters.cityList.map(item => item.py)
     }
   },
   mutations: {
-    setCities (state, payload) {
+    setCities(state, payload) {
       state.cities = payload
     }
   },
   actions: {
-    getCities ({ commit }, payload) {
+    getCities({ commit }, payload) {
       Toast.loading({
         // mask: true,
         message: '加载中',

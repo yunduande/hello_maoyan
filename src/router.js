@@ -9,6 +9,7 @@ import City from './views/city/index.vue'
 import Login from './views/login/index.vue'
 import Shopping from './views/shopping/index.vue'
 import FilmInfo from './views/film/index.vue'
+import Search from './views/search/index.vue'
 
 Vue.use(Router)
 
@@ -21,7 +22,8 @@ const router = new Router({
         {
           path: 'films',
           component: Films
-        }, {
+        },
+        {
           path: 'cinemas',
           component: Cinemas
         },
@@ -33,7 +35,6 @@ const router = new Router({
           path: '',
           redirect: '/films'
         }
-
       ]
     },
     {
@@ -51,6 +52,10 @@ const router = new Router({
     {
       path: '/shopping',
       component: Shopping
+    },
+    {
+      path: '/search',
+      component: Search
     }
   ]
 })

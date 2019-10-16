@@ -10,6 +10,14 @@
           <van-search placeholder="搜电影、搜影院" show-action />
         </form>
       </div>
+      <div class="search-all-list">
+        <ul>
+          <li class="search-list">
+            <i class="iconfont iconshijian"></i>
+            <span>魔咒</span>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -45,6 +53,19 @@
     }
     .van-search {
       border-bottom: 1px solid #e5e5e5;
+    }
+    .search-all-list {
+      .search-list {
+        i {
+          margin-left: 15px;
+          margin-right: 15px;
+        }
+        height: 44px;
+        border-bottom: 1px solid #e5e5e5;
+        line-height: 44px;
+        font-size: 15px;
+        color: #333;
+      }
     }
   }
 }

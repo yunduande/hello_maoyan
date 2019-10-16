@@ -5,7 +5,9 @@
       <div class="nav-left">
         <router-link tag="li" class="iconfont iconmjiantou-copy" to="/films"></router-link>
       </div>
-      <h1 class="nav-header">猫眼电影</h1>
+      <h1 class="nav-header">
+        <span>猫眼电影</span>
+      </h1>
     </header>
     <!-- tab切换 -->
     <div class="login">
@@ -19,31 +21,42 @@
         <span></span>
       </div>
     </div>
-    <!-- 影片列表的数据，使用动态组件来控制 -->
+
     <!-- 这里我们放的组件名字，不是死的 -->
     <component :is="tabType" />
   </div>
 </template>
 <script>
+import axios from 'axios'
 import register from '../../components/register'
 import login from '../../components/login'
 export default {
   name: 'Login',
+
   components: {
     register,
     login
   },
-  data () {
+  data() {
     return {
       tabType: 'login' // 当前的页面组件
     }
+    List: []
   },
   methods: {
     // 切换当前的页面
-    chgType (type) {
+    chgType(type) {
       this.tabType = type
     }
   }
+  // created() {
+  //   axios.get('http://localhost:3000/todos').then(response => {
+  //     // console.log(response)
+  //     let result = response.data
+  //     console.log(result)
+  //     this.List = result
+  //   })
+  // }
 }
 </script>
 <style lang="scss">
@@ -52,18 +65,26 @@ export default {
     background: #df2d2d;
     height: 50px;
     line-height: 50px;
-    text-align: center;
 
     .nav-left {
       float: left;
-      width: 50px;
+      width: 14.6%;
       height: 50px;
+      // text-align: left;
       text-decoration: none;
       list-style: none;
+      li {
+        padding-left: 10px;
+      }
     }
 
     .nav-header {
+      float: right;
       color: #fff;
+      width: 85.4%;
+      span {
+        padding-left: 100px;
+      }
     }
 
     li {
@@ -98,6 +119,7 @@ export default {
       width: 50%;
       position: absolute;
       bottom: 0;
+      transition: all 0.5s;
 
       span {
         display: block;

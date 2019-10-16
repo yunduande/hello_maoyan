@@ -17,7 +17,9 @@
           <div class="show-info">{{ item.showInfo }}</div>
         </div>
         <div class="right">
-          <button>购票</button>
+          <router-link to="/film/:id">
+            <button>购票</button>
+          </router-link>
         </div>
       </li>
     </ul>

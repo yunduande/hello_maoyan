@@ -86,6 +86,9 @@ export default {
           // console.log(response)
           let result = response.data
           console.log(result)
+          if (result[0].phone === this.phone) {
+            alert('该用户名已经注册了')
+          }
         })
     }
   },
@@ -94,7 +97,7 @@ export default {
     let pwd = document.getElementById('pwd')
     let pval = pwd.value
     let flagpwd = false
-    pwd.onclick = function() {
+    pwd.onblur = function() {
       fnCheckpwd()
     }
     function fnCheckpwd() {

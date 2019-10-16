@@ -19,6 +19,7 @@
         minlength="6"
         maxlength="11"
         id="pwd"
+        @blur="checkpwd"
       />
       <!-- <span>恭喜你，密码可以使用</span> -->
       <br />
@@ -31,6 +32,7 @@
         minlength="3"
         maxlength="15"
         @click="checkuser"
+        @keydown="commit"
       />
       <span></span>
     </form>
@@ -41,25 +43,27 @@
 
 <script >
 // 按需引入
+import axios from 'axios'
+import { setFlagsFromString } from 'v8'
 export default {
-  name: 'login',
-  //   data() {
-  //     return {}
-  //   },
+  name: 'register',
+  data() {
+    return {
+      phone: ''
+    }
+  },
   methods: {
-    //用户验证
     checkuser() {
       let user = document.getElementById('user')
-      let pwd = document.getElementById('pwd')
       let btn = document.getElementById('btn')
       let uval = user.value
       let flaguser = false
       btn.onclick = function() {
         fnCheckuser()
-        fncheckpwd()
       }
       function fnCheckuser() {
         let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
+
         if (uval === '') {
           alert('用户名不能为空')
           return false
@@ -76,9 +80,43 @@ export default {
           return true
         }
       }
+    },
+
+    checkpwd() {
+      let pwd = document.getElementById('pwd')
+      let pval = pwd.value
+      let flagpwd = false
+      pwd.onclick = function() {
+        fnCheckpwd()
+      }
+      function fnCheckpwd() {
+        let pwdpass = /^\w{10}$/
+        if (pval === '') {
+          flagpwd = false
+          alert('密码不能为空')
+          return false
+          flagpwd = false
+        }
+        if (pwdpass.test(pval)) {
+          return true
+          flagpwd = true
+        } else {
+          flagpwd = false
+          alert('用户名密码不规范')
+        }
+      }
+    },
+
+    commit() {
+      if (flaguser == true && flagpwd == true) {
+        return true
+      } else {
+        return false
+      }
     }
   }
 }
+
 //   //密码验证
 
 //   checkpwd() {

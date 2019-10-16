@@ -21,9 +21,9 @@
         </div>
       </ul>
       <!-- 搜索 -->
-      <div class="right">
+      <router-link to="/search" class="right">
         <span class="iconfont iconsousu"></span>
-      </div>
+      </router-link>
     </div>
 
     <component :is="curFilmtype" />
@@ -66,8 +66,6 @@ body {
 .page-city-films {
   // 标题
   h1 {
-    // @include border-cinemas;
-
     height: 52px;
     background: #f03d37;
     color: #fff;
@@ -81,6 +79,8 @@ body {
 
   // tabs 的切换
   .tabs {
+    @include border-cinemas;
+
     height: 44px;
     display: flex;
     position: sticky;

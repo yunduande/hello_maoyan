@@ -4,10 +4,12 @@ import router from './router'
 import store from './store/index'
 
 //????
-import { Search, NavBar, Toast } from 'vant'
+import { Search, NavBar, Toast,DropdownMenu, DropdownItem } from 'vant'
 Vue.use(Search)
   .use(NavBar)
   .use(Toast)
+  .use(DropdownMenu)
+  .use(DropdownItem)
 
 // 全局引入 vant
 // import Vant from 'vant'

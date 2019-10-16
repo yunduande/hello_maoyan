@@ -19,7 +19,7 @@ export default {
     getFilmList({ commit }, payload) {
       console.log('你进来没有')
       axios
-        .get('/ajax/movieOnInfoList?token=', {
+        .get('/maoyan/ajax/movieOnInfoList?token=', {
           headers: {
             'X-Client-Info':
               '{"a":"3000","ch":"1002","v":"5.0.4","e":"156999712018279380812110"}',

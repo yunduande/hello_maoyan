@@ -44,7 +44,6 @@
 <script >
 // 按需引入
 import axios from 'axios'
-import { setFlagsFromString } from 'v8'
 export default {
   name: 'register',
   data() {

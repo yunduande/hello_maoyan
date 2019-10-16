@@ -39,7 +39,6 @@
 
 <script>
 import axios from 'axios'
-import { setFlagsFromString } from 'v8'
 export default {
   name: 'register',
   data() {
@@ -90,27 +89,27 @@ export default {
             alert('该用户名已经注册了')
           }
         })
-    }
-  },
+    },
 
-  checkpwd() {
-    let pwd = document.getElementById('pwd')
-    let pval = pwd.value
-    let flagpwd = false
-    pwd.onblur = function() {
-      fnCheckpwd()
-    }
-    function fnCheckpwd() {
-      let pwdpass = /^\w{10}$/
-      if (pval === '') {
-        flagpwd = false
-        alert('密码不能为空')
-        return false
+    checkpwd() {
+      let pwd = document.getElementById('pwd')
+      let pval = pwd.value
+      let flagpwd = false
+      pwd.onblur = function() {
+        fnCheckpwd()
       }
-      if (pwdpass.test(pval)) {
-        return true
-      } else {
-        alert('用户名密码不规范')
+      function fnCheckpwd() {
+        let pwdpass = /^\w{10}$/
+        if (pval === '') {
+          flagpwd = false
+          alert('密码不能为空')
+          return false
+        }
+        if (pwdpass.test(pval)) {
+          return true
+        } else {
+          alert('用户名密码不规范')
+        }
       }
     }
   }

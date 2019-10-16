@@ -10,6 +10,7 @@
         id="user"
         v-model="phone"
       />
+      <!-- <span></span> -->
       <br />
       <input
         type="password"
@@ -18,7 +19,6 @@
         minlength="6"
         maxlength="20"
         id="pwd"
-        @blur="checkpwd"
         v-model="pwd"
       />
       <br />
@@ -32,7 +32,6 @@
         @click="checkuser"
       />
     </form>
-    <!-- <p>密码不能为空</p> -->
   </div>
 </template>
 
@@ -51,64 +50,89 @@ export default {
     checkuser() {
       let user = document.getElementById('user')
       let btn = document.getElementById('btn')
+      let phone = this.phone
       let uval = user.value
       let flaguser = false
+      let pwd = document.getElementById('pwd')
+      let pval = pwd.value
+      let flagpwd = false
+      let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
       btn.onclick = function() {
-        fnCheckuser()
+        checkphone()
+        checkpwd()
       }
-      function fnCheckuser() {
+
+      function checkphone() {
         let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
 
         if (uval === '') {
           alert('用户名不能为空')
-          return false
           flaguser = false
+          return false
         }
-
         if (uval !== '' && userpass.test(uval) == false) {
           flaguser = false
-          alert('手机号码不符合规范，再试一下吧')
+          alert('手机号码不规范，再试一下吧')
           return false
-        } else {
-          //   alert($text1.text())
+        }
+        // if (result[0].phone === phone) {
+        //   alert('注册重名。请重新注册')
+        // }
+        else {
           flaguser = true
           return true
+          // //发送get请求
+          axios
+            .get('http://localhost:3000/posts', {
+              params: {
+                phone: this.phone
+              }
+            })
+            .then(response => {
+              //  console.log(response)
+              let result = response.data
+              console.log(result)
+              // if (result && this.phone === result[0].phone) {
+              //   alert('该用户已经注册，请重新注册')
+              //   return
+              // }
+            })
+          axios({
+            method: 'post',
+            url: 'http://localhost:3000/posts',
+            data: {
+              phone: this.phone,
+              pwd: this.pwd
+            }
+          })
         }
       }
-      axios
-        .get('http://localhost:3000/posts', {
-          params: {
-            phone: this.phone
-          }
-        })
-        .then(response => {
-          // console.log(response)
-          let result = response.data
-          console.log(result)
-          if (result[0].phone === this.phone) {
-            alert('该用户名已经注册了')
-          }
-        })
-    },
 
-    checkpwd() {
-      let pwd = document.getElementById('pwd')
-      let pval = pwd.value
-      let flagpwd = false
-      pwd.onblur = function() {
-        fnCheckpwd()
-      }
-      function fnCheckpwd() {
-        let pwdpass = /^\w{10}$/
-        if (pval === '') {
+      // Send a POST request
+
+      function checkpwd() {
+        let pwdpass = /^\d{5,10}$/
+        let pval = pwd.value
+        //密码验证
+        if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
           alert('密码不能为空')
           return false
         }
-        if (pwdpass.test(pval)) {
+        if (pwdpass.test(pval) == true) {
           return true
-        } else {
-          alert('用户名密码不规范')
+          flagpwd = true
+        }
+        if (
+          (pwdpass.test(pval) !== true && pval !== '') ||
+          (pwdpass.test(pval) !== true && uval == '')
+        ) {
+          flagpwd = false
+          alert('密码不符合规范')
+          return false
+        }
+        if (flagpwd == true && flaguser == true) {
+          return true
         }
       }
     }
@@ -119,6 +143,7 @@ export default {
 .form1 {
   height: 60px;
   border: none;
+  width: 100%;
   box-sizing: border-box;
   padding-left: 10px;
 }
@@ -128,10 +153,6 @@ export default {
   border: none;
   box-sizing: border-box;
   padding-left: 12px;
-
-  //   padding-left: 10px;
-  /* position:relative;
-     left:4px; */
 }
 .btn {
   width: 100%;

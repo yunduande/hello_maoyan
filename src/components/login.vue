@@ -9,7 +9,6 @@
         maxlength="20"
         id="user"
       />
-      <!-- <span id="text1" style="display：none">恭喜你，手机号码可以使用</span> -->
 
       <br />
       <input
@@ -17,27 +16,15 @@
         placeholder="请输入你的密码"
         class="form2"
         minlength="6"
-        maxlength="11"
+        maxlength="15"
         id="pwd"
-        @blur="checkpwd"
       />
       <!-- <span>恭喜你，密码可以使用</span> -->
       <br />
 
-      <input
-        type="submit"
-        value="登录"
-        class="btn"
-        id="btn"
-        minlength="3"
-        maxlength="15"
-        @click="checkuser"
-        @keydown="commit"
-      />
+      <input type="submit" value="登录" class="btn" id="btn" @click="checkuser" />
       <span></span>
     </form>
-    <p id="text1" class="text">手机号码可以使用</p>
-    <!-- <p id="text2" class="text">手机号码可以使用</p> -->
   </div>
 </template>
 
@@ -57,86 +44,59 @@ export default {
       let btn = document.getElementById('btn')
       let uval = user.value
       let flaguser = false
+      let pwd = document.getElementById('pwd')
+      let pval = pwd.value
+      let flagpwd = false
+      let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
       btn.onclick = function() {
-        fnCheckuser()
+        checkuser()
+        checkpwd()
       }
-      function fnCheckuser() {
-        let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
 
+      function checkuser() {
+        let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
         if (uval === '') {
           alert('用户名不能为空')
-          return false
           flaguser = false
+          return false
         }
-
         if (uval !== '' && userpass.test(uval) == false) {
           flaguser = false
-          alert('手机号码不符合规范，再试一下吧')
+          alert('手机号码不规范，再试一下吧')
           return false
         } else {
-          //   alert($text1.text())
           flaguser = true
           return true
         }
       }
-    },
 
-    checkpwd() {
-      let pwd = document.getElementById('pwd')
-      let pval = pwd.value
-      let flagpwd = false
-      pwd.onclick = function() {
-        fnCheckpwd()
-      }
-      function fnCheckpwd() {
-        let pwdpass = /^\w{10}$/
-        if (pval === '') {
+      function checkpwd() {
+        let pwdpass = /^\d{5,10}$/
+        //密码验证
+        if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
           alert('密码不能为空')
           return false
-          flagpwd = false
         }
-        if (pwdpass.test(pval)) {
+        if (pwdpass.test(pval) == true) {
           return true
           flagpwd = true
-        } else {
-          flagpwd = false
-          alert('用户名密码不规范')
         }
-      }
-    },
-
-    commit() {
-      if (flaguser == true && flagpwd == true) {
-        return true
-      } else {
-        return false
+        if (
+          (pwdpass.test(pval) !== true && pval !== '') ||
+          (pwdpass.test(pval) !== true && uval == '')
+        ) {
+          flagpwd = false
+          alert('密码不符合规范')
+          return false
+        }
+        if (flaguser == true && flagpwd == true) {
+          return true
+        }
       }
     }
   }
 }
-
-//   //密码验证
-
-//   checkpwd() {
-//     let $btn = $('#btn')
-//     let $pwd = $('#pwd')
-//     let flagpwd = true
-//     $btn.blur(function() {
-//       fncheckpwd()
-//       // $text1.addClass('text')
-//     })
-//   function fncheckpwd() {
-//     let pwd = $pwd.val()
-//     let pwdpass = /^\d{10}$/
-//     if (pwd == '') {
-//       return false
-//       alert('密码不能为空')
-//     }
-//   }
-//   }
-//     }
-// }
 </script>
 
 <style lang="scss">

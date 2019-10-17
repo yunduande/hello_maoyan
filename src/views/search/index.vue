@@ -9,17 +9,28 @@
       </van-nav-bar>
     </div>
     <div class="search-wrapper">
-      <div class="search-header">
+      <div class="search-header" v-if="!searchVal">
         <form action="/">
-          <van-search placeholder="搜电影、搜影院" show-action />
+          <van-search placeholder="搜电影、搜影院" show-action v-model="searchVal" />
         </form>
       </div>
-      <div class="search-all-list">
-        <ul>
+      <!-- 默认不可见 搜索结果的展示 -->
+      <div class="box" v-else>
+        <form action="/">
+          <van-search placeholder="搜电影、搜影院" show-action v-model="searchVal" />
+        </form>
+        <ul class="search-all-list">
+          <li class="search-list" @click="remove">
+            <i class="iconfont iconshijian" @click="remove"></i>
+            <span>魔咒</span>
+            <div class="iconfont iconshanchu" style="
+    margin-left: 250px"></div>
+          </li>
           <li class="search-list">
             <i class="iconfont iconshijian"></i>
-            <span>魔咒</span>
-            <div class="iconfont iconshanchu"></div>
+            <span>凤凰</span>
+            <div class="iconfont iconshanchu" style="
+    margin-left: 250px"></div>
           </li>
         </ul>
       </div>
@@ -28,15 +39,23 @@
 </template>
 
 <script>
+
 export default {
   name: 'City',
-
+  data() {
+    return {
+      searchVal: ''
+    }
+  },
   methods: {
     //返回上一页
     goBack() {
       this.$router.back()
+    },
+    remove() {
+      remove(this)
     }
-  }
+  },
 }
 </script>
 

@@ -237,7 +237,7 @@ export default {
          width:97%;
         .cinemas-detail{
           height:124px;
-          background:pink;
+          // background:pink;
           margin-left:10px;
           @include border-cinemas;
           .box-middle{

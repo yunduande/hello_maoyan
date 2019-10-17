@@ -12,9 +12,11 @@ export default {
       let hot = []
       state.cities.forEach(city => {
         let hotCity = city.isHot
+        let hotname = city.name
+
         if (hotCity > 0) {
-          hot.push(hotCity)
-          console.log(hotCity)
+          hot.push(hotname)
+          console.log(hotname)
         }
       })
 

@@ -17,7 +17,10 @@
           <div class="show-info">{{ item.showInfo }}</div>
         </div>
         <div class="right">
-          <button>购票</button>
+          <router-link to="/film/:id">
+            <button :v-if="`{item.sc!== 0}`" v-show="!isShow">购票</button>
+            <button :v-else-if="`{item.sc === 0}`" v-show="!isShow">预售</button>
+          </router-link>
         </div>
       </li>
     </ul>
@@ -40,15 +43,20 @@ export default {
   },
   methods: {
     ...mapActions('film', ['getFilmList'])
+    // fn() {
+    //   if (!$store.movieList.sc === 0) {
+    //     return 1
+    //   } else {
+    //     return 0
+    //   }
+    // }
   },
-  // created() {
-  //   axios.get('/ajax/movieOnInfoList?token=').then(response => {
-  //     let result = response.data
-  //     // console.log(result)
-  //     let filmList = result.movieList
-  //     this.getFilmList()
-  //   })
-  // }
+  data() {
+    return {
+      isShow: false
+    }
+  },
+
   created() {
     this.getFilmList()
     console.log(this.$store)
@@ -60,12 +68,11 @@ export default {
 @import '../assets/styles/common/mixins.scss';
 
 .film-list {
-  // @include border-top;
   li {
     position: relative;
 
     @include border-bottom;
-    // background: yellow;
+
     height: 100%;
     display: flex;
     padding: 12px 0 15px 12px;
@@ -82,6 +89,7 @@ export default {
     .center {
       width: 202px;
       height: 100%;
+      overflow: hidden;
       .name {
         color: #333;
         font-size: 17px;
@@ -108,6 +116,11 @@ export default {
         font-size: 13px;
         line-height: 15px;
         margin-top: 6px;
+        // 文本溢出出现省略号
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
       }
       .show-info {
         color: #666;

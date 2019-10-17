@@ -44,23 +44,25 @@
           </div>
           <div class="list-right" ></div>
       </div>
-      <!-- 影院列表 -->
-      <div class="page-cinemas-list">
-        <div class="list-detail">
-            <div class="cinemas-detail">
+      <!-- 影院列表数据，获取动态数据 -->
+      <!-- <component is = "cinemasList" /> -->
+      <div class="page-cinemas-list" style="overflow-x:hidden">
+        <div class="list-detail" >
+            <div class="cinemas-detail" v-for="item in cinemasList" :key="item.id">
+              <router-link to='/cinemasDetail'>
                  <div class="box-middle">
                     <div class="cinemas-title">
-                      <span>凤凰国际影城</span>
+                      <span>{{item.nm}}</span>
                       <span class="price-block">
-                         <span class="price">38</span>
+                         <span class="price">{{item.sellPrice}}</span>
                          <span class="q">元起</span>
                       </span>
                     </div>
                     <div class="cinemas-location">
                       <div class="location">
-                        宝安区西乡街道宝安大道5010号西部硅谷（后瑞地铁站旁）B坐1楼
+                        {{item.addr}}
                       </div>
-                      <div class="distance">1.1km</div>
+                      <div class="distance">{{item.distance}}</div>
                     </div>
                     <div class="flex"></div>
                     <div class="cinemas-lable">
@@ -75,6 +77,7 @@
                       </div>
                     </div>
                  </div>
+              </router-link>
             </div>
         </div>
       </div>
@@ -82,11 +85,18 @@
   </div>
 </template>
 <script>
+// import cinemasList from '../../components/cinemasList.vue'
+// import { mapActions } from 'vuex'
 import axios from 'axios'
 export default {
   name: 'Cinemes',
+  // components:{
+  //   cinemasList
+  // },
   data () {
     return {
+      cinemasList:[],
+      id:111,
       serchVal: '',
       value1: 0,
       value2: 'a',
@@ -107,29 +117,30 @@ export default {
         { text: '销量排序', value: 'C' }
       ]
     }
-  },
-  created () {
-    axios.get("/maoyan/ajax/cinemaList?day=2019-10-15&offset=0&limit=20&districtId=-1&lineId=-1&hallType=-1&brandId=-1&serviceId=-1&areaId=-1&stationId=-1&item=&updateShowDay=true&reqId=1571144161754&cityId=30",{
+   },
+   created () {
+     let _this=this
+    axios.get("/maoyan/ajax/cinemaList?day=2019-10-16&offset=0&limit=20&districtId=-1&lineId=-1&hallType=-1&brandId=-1&serviceId=-1&areaId=-1&stationId=-1&item=&updateShowDay=true&reqId=1571191114871&cityId=30",{
        params: {
-        day: 2019 - 10 - 15,
+        day: 2019-10-16,
         offset: 0,
         limit: 20,
         districtId: -1,
         lineId: -1,
-        hallType: -1,
+        hallType: -1,//影院配置
         brandId: -1,
         serviceId: -1,
         areaId: -1,
         stationId: -1,
         item:'',
         updateShowDay: true,
-        reqId: 1571144161754,
-        cityId: 30
+        reqId: 1571191114871,
+        cityId: 30//城市ID
       }
     }
    ).then(response =>{
-      let result = response.data
-      console.log(result)
+      _this.cinemasList= response.data.cinemas
+      console.log(_this.cinemasList)
     })
   }
 }
@@ -222,18 +233,16 @@ export default {
         width:100%;
         flex:1;
         overflow-y:auto;
-      }
-      .list-detail{
-        width:97%;
+        .list-detail{
+         width:97%;
         .cinemas-detail{
-          max-height:98px;
-          min-height:124px;
+          height:124px;
           // background:pink;
           margin-left:10px;
           @include border-cinemas;
           .box-middle{
             width:328px;
-            max-height:69px;
+            height:94px;
             display: flex;
             justify-content: center;
             margin:0px 12px 8px;
@@ -241,13 +250,21 @@ export default {
             // background: blue;
             display: block;
             .cinemas-title{
-              height:23px;
-              line-height: 23px;
-              font-size:16px;
+              height:25px;
+              display: inline-block;
+              line-height: 25px;
+              font-size:17px;
               color:#000;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
+              >span{
+                display: inline-block;
+                width:190px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
               .price-block{
                  padding-left:9px;
                  padding-top:3px;
@@ -263,13 +280,13 @@ export default {
               }
             }
             .cinemas-location{
-              margin-top:5px;
-              font-size:13px;
+              margin-top:7px;
+              font-size:14px;
               color:#666;
               width: 328px;
               display: flex;
               .location{
-                width: 285px;
+                width: 275px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -279,9 +296,8 @@ export default {
               }
             }
             .cinemas-lable{
-              height:17px;
-              line-height: 17px;
-              margin-top:5px;
+              height:25px;
+              margin-top:8px;
               margin-bottom: 2px;
               overflow: hidden;
               .allowRefund{
@@ -289,18 +305,20 @@ export default {
                 border:1px solid #589daf;
                 border-radius: 2px;
                 display: inline-block;
-                padding:0 2px;
-                height:14px;
-                font-size: 11px;
+                padding:0 3px;
+                height:16px;
+                font-size: 12px;
+                line-height: 16px;
               }
               .write{
                 color:#589daf;
                 border:1px solid #589daf;
                 border-radius: 2px;
                 display: inline-block;
-                padding:0 2px;
-                height:14px;
-                font-size: 11px;
+                padding:0 3px;
+                height:16px;
+                font-size: 12px;
+                line-height: 16px;
                 margin-left:5px;
               }
               .snack{
@@ -308,9 +326,10 @@ export default {
                 border:1px solid #f90;
                 border-radius: 2px;
                 display: inline-block;
-                padding:0 2px;
-                height:14px;
-                font-size: 11px;
+                padding:0 3px;
+                height:16px;
+                font-size: 12px;
+                line-height: 16px;
                 margin-left:5px;
               }
               .hallType{
@@ -318,15 +337,17 @@ export default {
                 border:1px solid #589daf;
                 border-radius: 2px;
                 display: inline-block;
-                padding:0 2px;
-                height:14px;
-                font-size: 11px;
+                padding:0 3px;
+                height:16px;
+                font-size: 12px;
+                line-height: 16px;
                 margin-left:5px;
               }
             }
           }
         }
+       }
       }
-    }
+   }
 }
 </style>

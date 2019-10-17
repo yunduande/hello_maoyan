@@ -42,15 +42,13 @@ export default {
   name: 'register',
   data() {
     return {
-      phone: '',
-      pwd: ''
+      phone: ''
     }
   },
   methods: {
     checkuser() {
       let user = document.getElementById('user')
       let btn = document.getElementById('btn')
-      let phone = this.phone
       let uval = user.value
       let flaguser = false
       let pwd = document.getElementById('pwd')
@@ -58,13 +56,12 @@ export default {
       let flagpwd = false
       let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
       btn.onclick = function() {
-        checkphone()
+        checkuser()
         checkpwd()
       }
 
-      function checkphone() {
+      function checkuser() {
         let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
-
         if (uval === '') {
           alert('用户名不能为空')
           flaguser = false
@@ -74,45 +71,14 @@ export default {
           flaguser = false
           alert('手机号码不规范，再试一下吧')
           return false
-        }
-        // if (result[0].phone === phone) {
-        //   alert('注册重名。请重新注册')
-        // }
-        else {
+        } else {
           flaguser = true
           return true
-          // //发送get请求
-          axios
-            .get('http://localhost:3000/posts', {
-              params: {
-                phone: this.phone
-              }
-            })
-            .then(response => {
-              //  console.log(response)
-              let result = response.data
-              console.log(result)
-              // if (result && this.phone === result[0].phone) {
-              //   alert('该用户已经注册，请重新注册')
-              //   return
-              // }
-            })
-          axios({
-            method: 'post',
-            url: 'http://localhost:3000/posts',
-            data: {
-              phone: this.phone,
-              pwd: this.pwd
-            }
-          })
         }
       }
 
-      // Send a POST request
-
       function checkpwd() {
         let pwdpass = /^\d{5,10}$/
-        let pval = pwd.value
         //密码验证
         if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
@@ -131,7 +97,7 @@ export default {
           alert('密码不符合规范')
           return false
         }
-        if (flagpwd == true && flaguser == true) {
+        if (flaguser == true && flagpwd == true) {
           return true
         }
       }

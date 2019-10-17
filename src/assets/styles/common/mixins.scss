@@ -11,7 +11,7 @@
     transform: translateY(0.5);
   }
 }
-@mixin border-cinemas{
+@mixin border-cinemas {
   position: relative;
   &::after {
     content: '';
@@ -32,6 +32,19 @@
     position: absolute;
     width: 100%;
     height: 1px;
+    top: 0;
+    left: 0;
+    background: #ededed;
+    transform: translateY(0.5);
+  }
+}
+@mixin border-left {
+  position: relative;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 31px;
     top: 0;
     left: 0;
     background: #ededed;

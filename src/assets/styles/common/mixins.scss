@@ -11,7 +11,7 @@
     transform: translateY(0.5);
   }
 }
-@mixin border-cinemas{
+@mixin border-cinemas {
   position: relative;
   &::after {
     content: '';

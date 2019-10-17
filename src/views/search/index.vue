@@ -2,7 +2,11 @@
   <div class="page-search">
     <!-- 一级路由页面，搜索列表页 -->
     <div class="nav">
-      <van-nav-bar title="猫眼电影" left-arrow />
+      <van-nav-bar title="猫眼电影">
+        <template v-slot:left>
+          <i class="iconfont iconmjiantou-copy" @click="goBack"></i>
+        </template>
+      </van-nav-bar>
     </div>
     <div class="search-wrapper">
       <div class="search-header">
@@ -15,12 +19,27 @@
           <li class="search-list">
             <i class="iconfont iconshijian"></i>
             <span>魔咒</span>
+            <div class="iconfont iconshanchu"></div>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'City',
+
+  methods: {
+    //返回上一页
+    goBack() {
+      this.$router.back()
+    }
+  }
+}
+</script>
+
 
 <style lang="scss">
 .page-search {
@@ -29,13 +48,14 @@
   .van-nav-bar {
     height: 52px;
     background: #e54847;
-    text-align: center;
-    line-height: 52px;
     .van-nav-bar__title {
       color: #fff;
+      line-height: 52px;
+      text-align: center;
       font-size: 18px;
     }
-    .van-icon-arrow-left:before {
+    .iconmjiantou-copy {
+      display: block;
       color: #fff;
       font-size: 30px;
     }
@@ -60,6 +80,7 @@
           margin-left: 15px;
           margin-right: 15px;
         }
+        display: flex;
         height: 44px;
         border-bottom: 1px solid #e5e5e5;
         line-height: 44px;

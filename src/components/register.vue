@@ -99,7 +99,7 @@ export default {
         fnCheckpwd()
       }
       function fnCheckpwd() {
-        let pwdpass = /^\w{10}$/
+        let pwdpass = /^\w{6,10}$/
         if (pval === '') {
           flagpwd = false
           alert('密码不能为空')

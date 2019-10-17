@@ -31,8 +31,7 @@
         <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
-            <div class="city-item">上海</div>
-            <div class="city-item">北京</div>
+            <div class="city-item"></div>
           </div>
         </section>
         <div
@@ -70,6 +69,7 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
+
 export default {
   name: 'City',
   namespaced: true,
@@ -152,6 +152,7 @@ export default {
     display: flex;
     flex: 1;
     overflow: hidden;
+    height: 100%;
     .right {
       width: 35px;
       font-size: 12px;

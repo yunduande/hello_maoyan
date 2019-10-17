@@ -10,6 +10,7 @@ import Login from './views/login/index.vue'
 import Shopping from './views/shopping/index.vue'
 import FilmInfo from './views/film/index.vue'
 import Search from './views/search/index.vue'
+import CinemasDetail from './views/cinemasDetail/index.vue'
 
 Vue.use(Router)
 
@@ -56,6 +57,10 @@ const router = new Router({
     {
       path: '/search',
       component: Search
+    },
+    {
+      path: '/cinemasDetail',
+      component: CinemasDetail
     }
   ]
 })

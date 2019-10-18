@@ -140,7 +140,7 @@ export default {
     }
    ).then(response =>{
       _this.cinemasList= response.data.cinemas
-      console.log(_this.cinemasList)
+      // console.log(_this.cinemasList)
     })
   }
 }

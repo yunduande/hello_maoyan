@@ -32,7 +32,10 @@ const router = new Router({
         },
         {
           path: 'center',
-          component: Center
+          component: Center,
+          meta: {
+            needLogin: true
+          }
         },
         {
           path: '',
@@ -74,4 +77,5 @@ const router = new Router({
     }
   ]
 })
+
 export default router

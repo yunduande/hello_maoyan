@@ -23,13 +23,6 @@
           </div>
         </section>
         <section>
-          <div id="history" class="city-title">最近访问的城市</div>
-          <div class="city-list-inline">
-            <div class="city-item">鞍山</div>
-            <div class="city-item">安庆</div>
-          </div>
-        </section>
-        <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
             <div class="city-item" v-for="city in hotList" :key="city.cityId">{{ city.name }}</div>
@@ -55,7 +48,6 @@
       <div class="right">
         <ul>
           <li id="locate" @click="fn2()">定位</li>
-          <li id="history" @click="fn3()">最近</li>
           <li id="hot" @click="fn4()">热门</li>
           <li v-for="item in pys" :key="item" @click="fn1(item)">{{ item }}</li>
         </ul>

@@ -51,8 +51,8 @@ export default {
       let btn = document.getElementById('btn')
       let uval = user.value
       let flaguser = false
-      let pwd = document.getElementById('pwd')
-      let pval = pwd.value
+      let password = document.getElementById('pwd')
+      let pval = password.value
       let flagpwd = false
       let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
       btn.onclick = function() {

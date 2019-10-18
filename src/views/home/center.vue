@@ -21,7 +21,7 @@
               <p>电影</p>
             </div>
             <div class="order-item store">
-              <i class="iconfont iconziyuan" style="font-size:40px;color:#47d3e5"></i>
+              <i class="iconfont iconyingyuanb" style="font-size:40px;color:#47d3e5"></i>
               <p>商城</p>
             </div>
           </div>

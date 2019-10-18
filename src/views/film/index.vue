@@ -2,14 +2,14 @@
   <div class="page-film">
     <!-- 一级路由页面，影片详情页 -->
     <!-- <h1>我和我的祖国</h1> -->
-    <van-nav-bar title="我和我的祖国">
+    <van-nav-bar title="中国机长">
       <template v-slot:left>
-        <i class="iconfont iconmjiantou-copy" @click="goBack"></i>
+        <router-link to="/" class="iconfont iconmjiantou-copy" @click="goBack"></router-link>
       </template>
     </van-nav-bar>
 
     <!-- 背景图 -->
-    <div class="bgr">
+    <router-link to="/place" class="bgr">
       <!-- 遮罩层 -->
       <div class="movie-filter"></div>
       <div
@@ -39,73 +39,85 @@
           <span class="iconfont iconiconfontyoujiantou-copy"></span>
         </div>
       </div>
-    </div>
-    <!-- 日期 -->
-    <div class="date">
-      <ul>
-        <li>今天10月15日</li>
-        <li>明天10月16日</li>
-        <li>后天10月17日</li>
-      </ul>
-    </div>
+    </router-link>
 
-    <!-- 导航 -->
-    <div class="page-wrap">
-      <div class="cinemas-list">
-        <div class="item">
-          <i>
-            <van-dropdown-menu active-color="red">
-              <van-dropdown-item v-model="value1" :options="option1" />
-            </van-dropdown-menu>
-          </i>
+    <!-- 吸顶效果 -->
+    <div class="all-3">
+      <!-- 粘性定位 -->
+      <div class="bar">
+        <!-- 日期 -->
+        <div class="date">
+          <ul>
+            <li class="active">明天10月15日</li>
+            <li>明天10月16日</li>
+            <li>后天10月17日</li>
+            <div class="active-line">
+              <span></span>
+            </div>
+          </ul>
         </div>
-        <div class="item">
-          <i>
-            <van-dropdown-menu>
-              <van-dropdown-item v-model="value2" :options="option2" />
-            </van-dropdown-menu>
-          </i>
+
+        <!-- 导航 -->
+        <div class="page-wrap">
+          <div class="cinemas-list">
+            <div class="item">
+              <i>
+                <van-dropdown-menu active-color="red">
+                  <van-dropdown-item v-model="value1" :options="option1" />
+                </van-dropdown-menu>
+              </i>
+            </div>
+
+            <div class="item">
+              <i>
+                <van-dropdown-menu>
+                  <van-dropdown-item v-model="value2" :options="option2" />
+                </van-dropdown-menu>
+              </i>
+            </div>
+
+            <div class="item">
+              <i>
+                <van-dropdown-menu>
+                  <van-dropdown-item v-model="value3" :options="option3" />
+                </van-dropdown-menu>
+              </i>
+            </div>
+
+            <div class="list-right"></div>
+          </div>
         </div>
-        <div class="item">
-          <i>
-            <van-dropdown-menu>
-              <van-dropdown-item v-model="value3" :options="option3" />
-            </van-dropdown-menu>
-          </i>
-        </div>
-        <div class="list-right"></div>
       </div>
-    </div>
 
-    <!-- 正文 -->
-    <div class="cinema">
-      <div class="all" v-for="item in cinemasList" :key="item.id">
-        <div class="title">
-          {{ item.nm }}
-          <span class="price-block">
-            <span class="price">{{ item.sellPrice }}</span>
-            <span class="q">元起</span>
-          </span>
+      <!-- 正文 -->
+      <router-link to="/place" class="cinema">
+        <div class="all" v-for="item in cinemasList" :key="item.id">
+          <div class="title">
+            {{ item.nm }}
+            <span class="price-block">
+              <span class="price">{{ item.sellPrice }}</span>
+              <span class="q">元起</span>
+            </span>
+          </div>
+          <div class="add">
+            <div class="address">{{ item.addr }}</div>
+            <div class="distance">{{ item.distance }}</div>
+          </div>
+          <div class="meta">
+            <div class="allowRefuse">退</div>
+            <div class="endorse">改签</div>
+            <div class="snack">小吃</div>
+            <div class="vip">折扣卡</div>
+            <div class="hallType">4k厅</div>
+          </div>
+          <div class="card">
+            <span class="iconfont iconqiaquan"></span>
+            开卡特惠，首单两张最高立减6元
+          </div>
+          <div class="time">近期场次: 12:00 | 14:30 |15:20</div>
         </div>
-        <div class="add">
-          <div class="address">{{ item.addr }}</div>
-          <div class="distance">{{ item.distance }}</div>
-        </div>
-        <div class="meta">
-          <div class="allowRefuse">退</div>
-          <div class="endorse">改签</div>
-          <div class="snack">小吃</div>
-          <div class="vip">折扣卡</div>
-          <div class="hallType">4k厅</div>
-        </div>
-        <div class="card">
-          <span class="iconfont iconqiaquan"></span>
-          开卡特惠，首单两张最高立减6元
-        </div>
-        <div class="time">近期场次: 12:00 | 14:30 |15:20</div>
-      </div>
+      </router-link>
     </div>
-
     <!-- <div class="arr" style="height:800px;background:green"></div> -->
   </div>
 </template>
@@ -115,8 +127,10 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'Film',
+
   computed: {
-    ...mapState('cinemas', ['cinemasList'])
+    ...mapState('cinemas', ['cinemasList']),
+    ...mapState('film', ['filmList'])
   },
   filters: {
     formatImg(value) {
@@ -125,14 +139,14 @@ export default {
   },
   methods: {
     ...mapActions('cinemas', ['getCinemasList']),
+    ...mapActions('film', ['getFilmList']),
+
     goBack() {
       this.$router.back()
     }
   },
-
   created() {
-    this.getCinemasList()
-    console.log(this.$store)
+    this.getCinemasList(), console.log(this.$store), this.getFilmList()
   },
   data() {
     return {
@@ -167,6 +181,8 @@ export default {
   // background: yellow;
   height: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
   .van-nav-bar {
     height: 52px;
     background: #e54847;
@@ -197,8 +213,6 @@ export default {
 
     .brr {
       background-size: cover;
-      // background: green;
-
       position: absolute;
       background-repeat: no-repeat;
       opacity: 0.18;
@@ -284,182 +298,214 @@ export default {
       }
     }
   }
-
-  // 上映时间
-  .date {
-    height: 44px;
-    display: flex;
-    position: sticky;
-    top: 0px;
-    background: #fff;
-    z-index: 10;
-    ul {
-      display: flex;
-      text-align: center;
-      li {
-        margin-left: 5px;
-        line-height: 45px;
-        width: 115px;
-        // background: blue;
-        border-right: #fff 1px solid;
-      }
-    }
-  }
-  // 导航栏
-
-  .page-wrap {
-    flex-direction: column;
-    width: 100%;
-    display: flex;
-    position: sticky;
-    top: 43px;
-    background: #fff;
-    z-index: 10;
-    // overflow:auto;
-    // position:absolute;
+  .all-3 {
     flex: 1;
-    overflow: hidden;
-    // 影院列表
-    .cinemas-list {
-      height: 40px;
-      width: 375px;
-      display: flex;
-      .item {
-        flex: 1;
-        line-height: 40px;
+    // overflow: hidden;
+    position: relative;
+    // 粘性定位
+    .bar {
+      height: 85px;
+      position: sticky;
+      top: 0;
+      background: #fff;
+      z-index: 999;
+      overflow-y: hidden;
+      // 上映时间
+      .date {
+        height: 44px;
+        display: flex;
         @include border-cinemas;
-        .van-dropdown-menu {
-          height: 40px;
+        ul {
+          display: flex;
+          text-align: center;
+          .active {
+            color: red;
+          }
+          li {
+            margin-left: 5px;
+            line-height: 45px;
+            width: 115px;
+            // background: blue;
+            border-right: #fff 1px solid;
+          }
+          .active-line {
+            display: flex;
+            height: 2px;
+            transition: left 0.3s;
+            position: absolute;
+            margin-left: 12px;
+            bottom: 0;
+            span {
+              display: block;
+              height: 2px;
+              width: 100px;
+              background: red;
+              margin: auto;
+            }
+          }
         }
-        .list-right {
+      }
+      // 导航栏
+
+      .page-wrap {
+        flex-direction: column;
+        width: 100%;
+        // display: flex;
+        // position: sticky;
+        // top: 45px;
+        // background: #fff;
+        // z-index: 10;
+        // overflow: auto;
+        // position:absolute;
+        // flex: 1;
+        // overflow: hidden;
+
+        // 影院列表
+        .cinemas-list {
           height: 40px;
-          width: 17px;
-          visibility: hidden;
+          width: 375px;
+          display: flex;
+          .item {
+            flex: 1;
+            line-height: 40px;
+            @include border-left;
+            @include border-cinemas;
+            .van-dropdown-menu {
+              height: 40px;
+            }
+            .list-right {
+              height: 40px;
+              width: 17px;
+              visibility: hidden;
+            }
+          }
         }
       }
     }
-  }
-  .cinema {
-    height: 142px;
-    margin-left: 15px;
-    .all {
-      @include border-cinemas;
-      padding: 13px 15px 13px 0;
-      // background: brown;
-      height: 116px;
-      // 影院名
-      .title {
-        font-weight: 900px;
-        line-height: 23px;
-        font-size: 16px;
-        color: #000;
 
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 100%;
-        // 溢出出现省略号
-        // display: flex;
-        .price-block {
-          padding-left: 9px;
-          padding-top: 3px;
-          .price {
-            font-size: 18px;
-            color: #f03d37;
-          }
-          .q {
-            margin-left: 3px;
-            font-size: 11px;
-            color: #f03d37;
-          }
-        }
-      }
-      // 影院地址
-      .add {
-        display: flex;
-        overflow: hidden;
-        .address {
+    .cinema {
+      display: block;
+      height: 142px;
+      margin-left: 15px;
+      .all {
+        @include border-cinemas;
+        padding: 13px 15px 13px 0;
+        // background: brown;
+        height: 116px;
+        // 影院名
+        .title {
+          font-weight: 900px;
+          line-height: 23px;
+          font-size: 16px;
+          color: #000;
+
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
           width: 100%;
           // 溢出出现省略号
-          line-height: 19px;
-          font-size: 13px;
-          color: #666;
-          width: 280px;
+          // display: flex;
+          .price-block {
+            padding-left: 9px;
+            padding-top: 3px;
+            .price {
+              font-size: 18px;
+              color: #f03d37;
+            }
+            .q {
+              margin-left: 3px;
+              font-size: 11px;
+              color: #f03d37;
+            }
+          }
         }
-        .distance {
-          line-height: 19px;
-          font-size: 13px;
-          color: #666;
+        // 影院地址
+        .add {
+          display: flex;
+          overflow: hidden;
+          .address {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 100%;
+            // 溢出出现省略号
+            line-height: 19px;
+            font-size: 13px;
+            color: #666;
+            width: 280px;
+          }
+          .distance {
+            line-height: 19px;
+            font-size: 13px;
+            color: #666;
+          }
         }
-      }
-      // 一系列标签
-      .meta {
-        display: flex;
-        height: 17px;
-        line-height: 17px;
-        margin: 4px 0;
-        // 退票
-        .allowRefuse {
-          line-height: 15px;
-          border-radius: 2px;
-          padding: 0 3px;
-          font-size: 12px;
-          color: #589daf;
-          border: 1px solid #589daf;
+        // 一系列标签
+        .meta {
+          display: flex;
+          height: 17px;
+          line-height: 17px;
+          margin: 4px 0;
+          // 退票
+          .allowRefuse {
+            line-height: 15px;
+            border-radius: 2px;
+            padding: 0 3px;
+            font-size: 12px;
+            color: #589daf;
+            border: 1px solid #589daf;
+          }
+          // 改签
+          .endorse {
+            line-height: 15px;
+            border-radius: 2px;
+            padding: 0 3px;
+            font-size: 12px;
+            color: #589daf;
+            border: 1px solid #589daf;
+          }
+          // 小吃
+          .snack {
+            line-height: 15px;
+            border-radius: 2px;
+            padding: 0 3px;
+            font-size: 12px;
+            color: #f90;
+            border: 1px solid #f90;
+          }
+          .vip {
+            line-height: 15px;
+            border-radius: 2px;
+            padding: 0 3px;
+            font-size: 12px;
+            color: #f90;
+            border: 1px solid #f90;
+          }
+          // 放映厅
+          .hallType {
+            line-height: 15px;
+            border-radius: 2px;
+            padding: 0 3px;
+            font-size: 12px;
+            color: #589daf;
+            border: 1px solid #589daf;
+          }
         }
-        // 改签
-        .endorse {
-          line-height: 15px;
-          border-radius: 2px;
-          padding: 0 3px;
-          font-size: 12px;
-          color: #589daf;
-          border: 1px solid #589daf;
+        // 优惠卡
+        .card {
+          line-height: 18px;
+          color: #999;
+          margin-bottom: 4px;
+          font-size: 11px;
+          span {
+            color: #33ccff;
+          }
         }
-        // 小吃
-        .snack {
-          line-height: 15px;
-          border-radius: 2px;
-          padding: 0 3px;
-          font-size: 12px;
-          color: #f90;
-          border: 1px solid #f90;
+        // 上映时间
+        .time {
+          line-height: 18px;
+          color: #777;
         }
-        .vip {
-          line-height: 15px;
-          border-radius: 2px;
-          padding: 0 3px;
-          font-size: 12px;
-          color: #f90;
-          border: 1px solid #f90;
-        }
-        // 放映厅
-        .hallType {
-          line-height: 15px;
-          border-radius: 2px;
-          padding: 0 3px;
-          font-size: 12px;
-          color: #589daf;
-          border: 1px solid #589daf;
-        }
-      }
-      // 优惠卡
-      .card {
-        line-height: 18px;
-        color: #999;
-        margin-bottom: 4px;
-        font-size: 11px;
-        span {
-          color: #33ccff;
-        }
-      }
-      // 上映时间
-      .time {
-        line-height: 18px;
-        color: #777;
       }
     }
   }

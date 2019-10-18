@@ -8,6 +8,7 @@
     <div class="tabs">
       <!-- 城市选择 -->
       <router-link to="/city" class="left">
+        <!-- {{ this.$store.city.name }} -->
         城市
         <span class="iconfont iconxiajiantou_huaban"></span>
       </router-link>

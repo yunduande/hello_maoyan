@@ -26,12 +26,13 @@
           <div id="history" class="city-title">最近访问的城市</div>
           <div class="city-list-inline">
             <div class="city-item">鞍山</div>
+            <div class="city-item">安庆</div>
           </div>
         </section>
         <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
-            <div class="city-item"></div>
+            <div class="city-item" v-for="city in hotList" :key="city.cityId">{{ city.name }}</div>
           </div>
         </section>
         <div
@@ -42,7 +43,12 @@
         >
           <p>{{ item.py }}</p>
           <ul>
-            <li v-for="city in item.list" :key="city.cityId">{{ city.name }}</li>
+            <router-link
+              tag="li"
+              v-for="city in item.list"
+              :key="city.cityId"
+              to="/"
+            >{{ city.name }}</router-link>
           </ul>
         </div>
       </div>
@@ -90,6 +96,8 @@ export default {
   computed: {
     ...mapState('city', ['cities']),
     ...mapGetters('city', ['cityList', 'pys']),
+    ...mapGetters('city', ['cityList', 'hotList']),
+
     searchList() {
       if (!this.searchVal) {
         return []
@@ -204,7 +212,7 @@ export default {
         }
       }
       .city-host {
-        height: 100px;
+        min-height: 120px;
       }
     }
   }

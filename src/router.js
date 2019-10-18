@@ -11,6 +11,8 @@ import Shopping from './views/shopping/index.vue'
 import FilmInfo from './views/film/index.vue'
 import Search from './views/search/index.vue'
 import CinemasDetail from './views/cinemasDetail/index.vue'
+import Place from './views/place/index.vue'
+import Title from './views/title/index.vue'
 
 Vue.use(Router)
 
@@ -53,6 +55,14 @@ const router = new Router({
     {
       path: '/shopping',
       component: Shopping
+    },
+    {
+      path: '/place',
+      component: Place
+    },
+    {
+      path: '/title',
+      component: Title
     },
     {
       path: '/search',

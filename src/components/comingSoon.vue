@@ -1,5 +1,5 @@
 <template>
-  <div class="film-list">
+  <router-link to="/film/:id" class="film-list">
     <!-- <h2>即将上映</h2> -->
     <ul>
       <li v-for="item in filmList" :key="item.id">
@@ -16,12 +16,12 @@
           <div class="actor">主演：{{ item.star }}</div>
           <div class="show-info">{{ item.showInfo }}</div>
         </div>
-        <div class="right">
+        <router-link to="/film/:id" class="right">
           <button>购票</button>
-        </div>
+        </router-link>
       </li>
     </ul>
-  </div>
+  </router-link>
 </template>
 
 <script>
@@ -31,15 +31,15 @@ import { mapState, mapActions } from 'vuex'
 export default {
   name: 'ComingSoon',
   computed: {
-    ...mapState('film', ['filmList'])
+    ...mapState('movie', ['filmList'])
   },
-   filters: {
+  filters: {
     formatImg(value) {
       return value.replace('w.h', '128.180')
     }
   },
   methods: {
-    ...mapActions('film', ['getFilmList'])
+    ...mapActions('movie', ['getMovieList'])
   },
   // created() {
   //   axios.get('/ajax/movieOnInfoList?token=').then(response => {
@@ -50,7 +50,7 @@ export default {
   //   })
   // }
   created() {
-    this.getFilmList()
+    this.getMovieList()
     console.log(this.$store)
   }
 }
@@ -98,7 +98,7 @@ export default {
 
         span {
           display: block;
-          color: blue;
+          color: #faaf00;
           font-size: 15px;
           font-weight: 700;
         }
@@ -108,6 +108,11 @@ export default {
         font-size: 13px;
         line-height: 15px;
         margin-top: 6px;
+        // 文本溢出出现省略号
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
       }
       .show-info {
         color: #666;

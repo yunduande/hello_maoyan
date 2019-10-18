@@ -3,11 +3,12 @@
     <!-- 二级路由页面，影片列表页 -->
 
     <!-- 标题栏 -->
-    <h1>猫眼电影</h1>
+    <router-link to="/title" class="title">猫眼电影</router-link>
 
     <div class="tabs">
       <!-- 城市选择 -->
       <router-link to="/city" class="left">
+        <!-- {{ this.$store.city.name }} -->
         城市
         <span class="iconfont iconxiajiantou_huaban"></span>
       </router-link>
@@ -65,7 +66,9 @@ body {
 }
 .page-city-films {
   // 标题
-  h1 {
+  .title {
+    display: block;
+    font-weight: 400;
     height: 52px;
     background: #f03d37;
     color: #fff;

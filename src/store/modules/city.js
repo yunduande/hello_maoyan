@@ -9,17 +9,6 @@ export default {
   getters: {
     cityList(state) {
       let res = []
-      let hot = []
-      state.cities.forEach(city => {
-        let hotCity = city.isHot
-        let hotname = city.name
-
-        if (hotCity > 0) {
-          hot.push(hotname)
-          console.log(hotname)
-        }
-      })
-
       state.cities.forEach(city => {
         let py = city.pinyin.charAt(0).toUpperCase()
         let index = res.findIndex(item => item.py === py)
@@ -37,8 +26,20 @@ export default {
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
+
     pys(status, getters) {
       return getters.cityList.map(item => item.py)
+    },
+    hotList(state) {
+      let rm = []
+      state.cities.forEach(city => {
+        let sz = city.isHot
+        if (sz > 0) {
+          rm.push(city)
+        }
+      })
+      console.log(rm)
+      return rm
     }
   },
   mutations: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="film-list">
+  <router-link to="/film/:id" class="film-list">
     <!-- <h2>正在热映</h2> -->
     <ul>
       <li v-for="item in filmList" :key="item.id">
@@ -18,17 +18,18 @@
         </div>
         <div class="right">
           <router-link to="/film/:id">
-            <button :v-if="`{item.sc!== 0}`" v-show="!isShow">购票</button>
-            <button :v-else-if="`{item.sc === 0}`" v-show="!isShow">预售</button>
+            <!-- <button :v-if="`${item.sc!== 0}`" v-show="!isShow">购票</button> -->
+            <!-- <button :v-else-if="`${item.sc === 0}`" v-show="!isShow">预售</button> -->
+            <button v-if="isShow" :isShow="fn1" class="now">购票</button>
+            <button v-else class="wait">预购</button>
           </router-link>
         </div>
       </li>
     </ul>
-  </div>
+  </router-link>
 </template>
 
 <script>
-// import axios from 'axios'
 import { mapState, mapActions } from 'vuex'
 
 export default {
@@ -42,18 +43,18 @@ export default {
     }
   },
   methods: {
-    ...mapActions('film', ['getFilmList'])
-    // fn() {
-    //   if (!$store.movieList.sc === 0) {
-    //     return 1
-    //   } else {
-    //     return 0
-    //   }
-    // }
+    ...mapActions('film', ['getFilmList']),
+    fn1() {
+      if (filmList.sc === 0) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   data() {
     return {
-      isShow: false
+      isShow: ''
     }
   },
 
@@ -106,7 +107,7 @@ export default {
 
         span {
           display: block;
-          color: blue;
+          color: #faaf00;
           font-size: 15px;
           font-weight: 700;
         }
@@ -137,13 +138,23 @@ export default {
       position: absolute;
       right: 33px;
 
-      button {
+      .now {
         height: 27px;
         width: 47px;
         border: none;
         background: #f03d37;
         color: white;
         border: 1px solid #f03d37;
+        border-radius: 3px;
+        font-size: 12px;
+      }
+      .wait {
+        height: 27px;
+        width: 47px;
+        border: none;
+        background: #3c9fe6;
+        color: white;
+        border: 1px solid #3c9fe6;
         border-radius: 3px;
         font-size: 12px;
       }

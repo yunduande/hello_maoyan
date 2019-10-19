@@ -41,18 +41,18 @@ export default {
     ...mapState('cinemas', ['cinemasList'])
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
   methods: {
     ...mapActions('cinemas', ['getCinemasList']),
 
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   },
-  created() {
+  created () {
     this.getCinemasList()
   }
 }
@@ -187,6 +187,3 @@ export default {
   }
 }
 </style>
-
-
-

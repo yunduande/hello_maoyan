@@ -18,20 +18,15 @@
              <i class="iconfont icondizhi2"></i>
           </div>
       </div>
-      <div class="film-banner" v-for="(item,index) in filmsPic" :key="index" >
+      <div class="film-banner" >
          <div class="film-pic">
              <div class="swiper-container" >
                 <div class="swiper-wrapper" >
-                  <div class="swiper-slide" v-for="(item,index) in filmsPic" :key="index"><img :src="item.img | formatImg" alt="" style="width:73px;height:109px;"></div>
-                  <!-- <div class="swiper-slide">Slide 2</div>
-                  <div class="swiper-slide">Slide 3</div>
-                  <div class="swiper-slide">Slide 4</div>
-                  <div class="swiper-slide">Slide 5</div>
-                  <div class="swiper-slide">Slide 6</div> -->
+                  <div class="swiper-slide" v-for="(item,index) in filmsPic" :key="index"><img :src="item.img | formatImg" alt="" style="width:73px;height:109px;overflow:hidden;"></div>
                 </div>
             </div>
          </div>
-         <div class="film-mom" >
+         <div class="film-mom"  v-for="(item,index) in filmsPic" :key="index">
            <div class="movie-title" >
              <span class="title">{{item.nm}}</span>
              <span class="grade">
@@ -46,29 +41,17 @@
            </div>
          </div>
       </div>
-      <div class="film-mom">
-        <div class="movie-title">
-          <span class="title">中国机长</span>
-          <span class="grade">
-            <span>
-              9.4
-              <span class="store">分</span>
-            </span>
-          </span>
-        </div>
-        <div class="movie-desc">111分钟 | 剧情 | 张涵予,欧豪,杜江</div>
-      </div>
     </div>
     <div class="tabs">
       <ul>
         <li
           :class="{'active':curFilmsDate === 'firstList'}"
           @click="chgFilmsDate('firstList')"
-        >今天10月16日</li>
+        >今天10月21日</li>
         <li
           :class="{'active':curFilmsDate === 'secondList'}"
           @click="chgFilmsDate('secondList')"
-        >明天10月17日</li>
+        >明天10月22日</li>
       </ul>
       <div class="active-line" :style="{'left':curFilmsDate === 'firstList' ? '0' : '27.5%' }">
         <span></span>
@@ -91,77 +74,66 @@ export default {
     secondList
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
-  data(){
-    return{
-      curFilmsDate:'firstList', //当前影片上映日期
-      filmsPic:[],//电影图片
-      snackSell:[],//套餐组合
-      cinemasName:[],//影院名字
-      curFilmsDate: 'firstList' //当前影片上映日期
-     }
+  data () {
+    return {
+      curFilmsDate: 'firstList', // 当前影片上映日期
+      filmsPic: [], // 电影图片
+      snackSell: [], // 套餐组合
+      cinemasName: [], // 影院名字
+      curFilmsDate: 'firstList', // 当前影片上映日期
+      curFilmspic:'0'
+    }
   },
-  created(){
+  created () {
     let _this = this
-    console.log(this.$route)
-    axios.get("/maoyan/ajax/cinemaDetail?",{
-       params:{
-        cinemaId:this.$route.params.id
+    // console.log(this.$route)
+    axios.get('/maoyan/ajax/cinemaDetail?', {
+      params: {
+        cinemaId: this.$route.params.id
       }
-     }).then(response =>{
+    }).then(response => {
       let result = response.data
-      // console.log(result)
       _this.cinemasName = result.cinemaData
-      console.log(result)
       _this.filmsPic = result.showData.movies
-      console.log(_this.cinemasName)
+      // console.log(_this.cinemasName)
       console.log(_this.filmsPic)
       this.$nextTick(() => {
         _this.fn1()
       })
     })
   },
-  // methods:{
-  //   chgFilmsDate(date){
-  //      this.curFilmsDate = date
-  //   },
-  //   chgFilmsDate(date) {
-  //     this.curFilmsDate = date
-  //   },
-  //   fn1() {
-  //     var swiper = new Swiper('.swiper-container', {
-  //       slidesPerView: 3,
-  //       spaceBetween: 30,
-  //       centeredSlides: true,
-  //       loop: true,
-  //       pagination: {
-  //         el: '.swiper-pagination',
-  //         clickable: true
-  //       }
-  //     })
-  //   }
-  // },
-  // methods: {
-  //   chgFilmsDate(date) {
-  //     this.curFilmsDate = date
-  //   },
-  //   fn1() {
-  //     var swiper = new Swiper('.swiper-container', {
-  //       slidesPerView: 3,
-  //       spaceBetween: 30,
-  //       centeredSlides: true,
-  //       loop: true,
-  //       pagination: {
-  //         el: '.swiper-pagination',
-  //         clickable: true
-  //       }
-  //     })
-  //   }
-  // },
-  mounted(){
+  methods: {
+    chgFilmsDate (date) {
+      this.curFilmsDate = date
+    },
+    chgFilms (date) {
+      this.curFilmspic = date
+    },
+    fn1 () {
+      var swiper = new Swiper('.swiper-container', {
+        slidesPerView: 3,
+        spaceBetween: 30,
+        slideToClickedSlide:true,
+        centeredSlides: true,
+        // loop: false,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        on:{
+       slideChange:function(){
+       console.log(this.activeIndex)
+       }
+      }
+
+      })
+    }
+  },
+  mounted () {
     this.fn1()
   }
 }

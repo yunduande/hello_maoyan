@@ -116,7 +116,7 @@ export default {
     ...mapState('introduce', ['info'])
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
@@ -124,14 +124,14 @@ export default {
     ...mapActions('cinemas', ['getCinemasList']),
     ...mapActions('introduce', ['getInfo']),
 
-    goBack() {
+    goBack () {
       this.$router.back()
     }
   },
-  created() {
+  created () {
     this.getCinemasList(), console.log(this.$store), this.getInfo()
   },
-  data() {
+  data () {
     return {
       serchVal: '',
       value1: 0,

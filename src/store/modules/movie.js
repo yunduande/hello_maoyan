@@ -6,17 +6,17 @@ export default {
     filmList: [] // 所有城市的集合
   },
   getters: {
-    filmCount(state) {
+    filmCount (state) {
       return state.filmList.length
     }
   },
   mutations: {
-    setFilmList(state, payload) {
+    setFilmList (state, payload) {
       state.filmList = payload
     }
   },
   actions: {
-    getMovieList({ commit }, payload) {
+    getMovieList ({ commit }, payload) {
       // console.log('你进来没有，快开始了')
       axios
         .get('/maoyan/ajax/comingList?ci=10&token=&limit=10', {

@@ -60,49 +60,27 @@
     <div class="tuan-wrap">
       <div class="tuan-title">影院超值套餐</div>
       <ul class="tuan-item">
-        <li>
+        <li v-for="(item,index) in filmsDateList" :key="index">
           <div class="item-left">
             <img
-              src="//p1.meituan.net/440.0/deal/9c11adf56ce2ab4d2d08f6aa9772135228573.jpg@90_0_279_279a%7C267h_267w_2e_90Q"
-              alt
+              :src="item.imageUrl | formatImg "
             />
           </div>
           <div class="item-right">
             <div class="item-title">
               <span class="num">双人</span>
-              <span class="title">16oz可乐2杯+46oz爆米花1桶</span>
+              <span class="title">{{item.title}}</span>
             </div>
-            <div class="item-middle">已售330</div>
+            <div class="item-middle">{{item.curNumberDesc}}</div>
             <div class="item-bottom">
               <span class="sell-price">
                 <span>￥</span>
-                <span class="num">24.5</span>
+                <span class="num">{{item.price}}</span>
               </span>
               <div class="buy-botton">去购买</div>
             </div>
           </div>
         </li>
-        <!-- <li>
-        <div class="item-left">
-          <img src="//p1.meituan.net/440.0/deal/9c11adf56ce2ab4d2d08f6aa9772135228573.jpg@90_0_279_279a%7C267h_267w_2e_90Q" alt="">
-        </div>
-        <div class="item-right">
-          <div class="item-title">
-            <span class="num">双人</span>
-            <span class="title">16oz可乐2杯+46oz爆米花1桶</span>
-          </div>
-          <div class="item-middle">已售330</div>
-          <div class="item-bottom">
-            <span class="sell-price">
-              <span>￥</span>
-              <span class="num">24.5</span>
-            </span>
-            <div class="buy-botton">
-              去购买
-            </div>
-          </div>
-        </div>
-        </li>-->
       </ul>
     </div>
   </div>
@@ -110,19 +88,20 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name:'firstList',
-  methods:{
-    ...mapActions('date',['getfilmsDateList'])
+  name: 'firstList',
+  methods: {
+    ...mapActions('date', ['getfilmsDateList'])
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
   computed: {
     ...mapState('date', ['filmsDateList'])
   },
-  created() {
+  created () {
+    console.log(this.$route)
     this.getfilmsDateList()
     // console.log(this.filmsDateList)
     // this.fn1()

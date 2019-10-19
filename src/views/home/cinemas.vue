@@ -90,29 +90,29 @@ export default {
   name: 'Cinemes',
   data () {
     return {
-      cinemasList:[],
-      locationList:[],
-      id:111,
+      cinemasList: [],
+      locationList: [],
+      id: 111,
       serchVal: '',
       value1: 0,
       value2: 'a',
       value3: 'A',
       option1: [
-        { text: '全城', value: 0 },
+        { text: '全城', value: 0 }
       ],
       option2: [
-        { text: '品牌', value: 'a' },
+        { text: '品牌', value: 'a' }
       ],
       option3: [
-        { text: '特色', value: 'A' },
+        { text: '特色', value: 'A' }
       ]
-     }
-    },
+    }
+  },
   created () {
-     let _this=this
-    //  console.log(this.$route)
-     axios.get("/maoyan/ajax/cinemaList?",{
-       params: {
+    let _this = this
+    console.log(this.$route)
+    axios.get('/maoyan/ajax/cinemaList?', {
+      params: {
         // day: 2019-10-16,
         // offset: 0,
         // limit: 20,
@@ -127,9 +127,9 @@ export default {
         // updateShowDay: true,
         // reqId: 1571191114871,
         // cityId: 30//城市ID
-        day: 2019-10-18,
-        offset: 0,
-        limit: 20,
+        day: 2019 - 10 - 18,
+        offset: 0, // 滑过的条数
+        limit: 20, // 每页多少条
         districtId: 23420,
         lineId: -1,
         hallType: -1,
@@ -139,72 +139,72 @@ export default {
         stationId: -1,
         item: '',
         updateShowDay: false,
-        reqId: 1571388626611,
-        cityId: 30
+        reqId: 1571388626611, // 时间搓
+        cityId: 30// 城市ID
       }
-     }).then(response =>{
-      _this.cinemasList= response.data.cinemas
+    }).then(response => {
+      _this.cinemasList = response.data.cinemas
       // console.log(_this.cinemasList)
-     })
-     axios.get("/maoyan/ajax/filterCinemas?",{
-       params:{
-         ci:30
+    })
+    axios.get('/maoyan/ajax/filterCinemas?', {
+      params: {
+        ci: 30
       }
-    }).then(response =>{
+    }).then(response => {
       _this.locationList = response.data
-      //数据处理
-      //地区
+      // 数据处理
+      // 地区
       console.log(_this.locationList)
       let arr = _this.locationList.district.subItems
-      //品牌
+      // 品牌
       let brr = _this.locationList.brand.subItems
-      //服务
+      // 服务
       let crr = _this.locationList.hallType.subItems
-      //地区一层层剥开
-      let a=[]
-      let b=[]
-      let c=[]
+      // 地区一层层剥开
+      let a = []
+      let b = []
+      let c = []
       arr.forEach(element => {
         a.push(element.name)
-      });
+      })
       a.forEach(element => {
-         b.push({text:element,value:String(element)})
-      });
-      //复制元素从第二项开始
-      c= b.slice(1);
+        b.push({ text: element, value: String(element) })
+      })
+      // 复制元素从第二项开始
+      c = b.slice(1)
       c.forEach(element => {
-       _this.option1.push(element)
-      });
-      //品牌一层层剥开
+        _this.option1.push(element)
+      })
+      // 品牌一层层剥开
       let aa = []
       let ab = []
       let ac = []
-      brr.forEach(element =>{
+      brr.forEach(element => {
         aa.push(element.name)
-      });
+      })
       aa.forEach(element => {
-         ab.push({text:element,value:String(element)})
-      });
-      ac= ab.slice(1);
+        ab.push({ text: element, value: String(element) })
+      })
+      ac = ab.slice(1)
       ac.forEach(element => {
-       _this.option2.push(element)
-      });
-      //特色一层层剥开
+        _this.option2.push(element)
+      })
+      // 特色一层层剥开
       let ba = []
       let bb = []
       let bc = []
-      crr.forEach(element =>{
+      crr.forEach(element => {
         ba.push(element.name)
-      });
+      })
       ba.forEach(element => {
-         bb.push({text:element,value:String(element)})
-      });
-      bc= bb.slice(1);
+        bb.push({ text: element, value: String(element) })
+      })
+      bc = bb.slice(1)
       bc.forEach(element => {
-       _this.option3.push(element)
-      });
+        _this.option3.push(element)
+      })
     })
-   }
+  }
 }
 </script>
 <style lang="scss" scoped>

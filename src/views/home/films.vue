@@ -49,7 +49,7 @@ export default {
     comingSoon,
     nowPlaying
   },
-  data() {
+  data () {
     return {
       curFilmtype: 'nowPlaying'
     }
@@ -58,7 +58,7 @@ export default {
     /**
      * 切换当前的影片类型
      */
-    chgFilmtype(type) {
+    chgFilmtype (type) {
       this.curFilmtype = type
     }
   }

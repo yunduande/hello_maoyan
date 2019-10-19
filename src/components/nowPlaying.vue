@@ -36,14 +36,18 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
+import btn from './btn'
 
 export default {
   name: 'NowPlaying',
+  compnonents: {
+    btn
+  },
   computed: {
     ...mapState('film', ['filmList'])
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
@@ -51,7 +55,7 @@ export default {
     ...mapActions('film', ['getFilmList'])
   },
 
-  created() {
+  created () {
     this.getFilmList()
     // console.log(this.$store)
   }

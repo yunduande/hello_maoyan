@@ -6,17 +6,17 @@ export default {
     cinemasList: [] // 所有影院的集合
   },
   getters: {
-    cinemasCount(state) {
+    cinemasCount (state) {
       return state.cinemasList.length
     }
   },
   mutations: {
-    setCinemasList(state, payload) {
+    setCinemasList (state, payload) {
       state.cinemasList = payload
     }
   },
   actions: {
-    getCinemasList({ commit }, payload) {
+    getCinemasList ({ commit }, payload) {
       console.log('你进来没有')
       axios
         .post(`/maoyan/ajax/movie?forceUpdate=${new Date().getTime()}`, {

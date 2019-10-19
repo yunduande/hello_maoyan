@@ -6,17 +6,17 @@ export default {
     info: [] // 所有影院的集合
   },
   getters: {
-    infoCount(state) {
+    infoCount (state) {
       return state.info.length
     }
   },
   mutations: {
-    setInfo(state, payload) {
+    setInfo (state, payload) {
       state.info = payload
     }
   },
   actions: {
-    getInfo({ commit }, payload) {
+    getInfo ({ commit }, payload) {
       console.log('你进来没有,介绍一下自己')
       axios
         .get('/maoyan/ajax/detailmovie?', {

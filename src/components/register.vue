@@ -35,7 +35,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from 'axios'
 export default {
@@ -79,7 +78,7 @@ export default {
 
       function checkpwd() {
         let pwdpass = /^\d{5,10}$/
-        //密码验证
+        // 密码验证
         if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
           alert('密码不能为空')

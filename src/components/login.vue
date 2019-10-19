@@ -33,13 +33,13 @@
 import axios from 'axios'
 export default {
   name: 'register',
-  data() {
+  data () {
     return {
       phone: ''
     }
   },
   methods: {
-    checkuser() {
+    checkuser () {
       let user = document.getElementById('user')
       let btn = document.getElementById('btn')
       let uval = user.value
@@ -48,12 +48,12 @@ export default {
       let pval = pwd.value
       let flagpwd = false
       let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
-      btn.onclick = function() {
+      btn.onclick = function () {
         checkuser()
         checkpwd()
       }
 
-      function checkuser() {
+      function checkuser () {
         let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
         if (uval === '') {
           alert('用户名不能为空')
@@ -70,9 +70,9 @@ export default {
         }
       }
 
-      function checkpwd() {
+      function checkpwd () {
         let pwdpass = /^\d{5,10}$/
-        //密码验证
+        // 密码验证
         if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
           alert('密码不能为空')

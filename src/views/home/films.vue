@@ -1,9 +1,37 @@
 <template>
   <div class="page-city-films">
     <!-- 二级路由页面，影片列表页 -->
+    <div>
+      <!-- 标题栏 -->
+      <router-link to="/title" class="title">猫眼电影</router-link>
 
-    <!-- 标题栏 -->
-    <router-link to="/title" class="title">猫眼电影</router-link>
+      <div class="tabs">
+        <!-- 城市选择 -->
+        <router-link to="/city" class="left">
+          <!-- {{ this.$store.city.name }} -->
+          城市
+          <span class="iconfont iconxiajiantou_huaban"></span>
+        </router-link>
+        <!-- tabs 切换 -->
+        <ul>
+          <!-- 这时active是写死的，我们想办法让她和什么变化的东西联系起来 -->
+          <li
+            :class="{'active':curFilmtype === 'nowPlaying'}"
+            @click="chgFilmtype('nowPlaying')"
+          >正在热映</li>
+          <li
+            :class="{'active':curFilmtype === 'comingSoon'}"
+            @click="chgFilmtype('comingSoon')"
+          >即将上映</li>
+          <div class="active-line" :style="{'left':curFilmtype === 'nowPlaying'?'0':'50%'}">
+            <span></span>
+          </div>
+        </ul>
+        <!-- 搜索 -->
+        <router-link to="/search" class="right">
+          <span class="iconfont iconsousu"></span>
+        </router-link>
+      </div>
 
     <div class="tabs">
       <!-- 城市选择 -->
@@ -24,15 +52,15 @@
       <router-link to="/search" class="right">
         <span class="iconfont iconsousu"></span>
       </router-link>
+      <component :is="curFilmtype" />
     </div>
-
-    <component :is="curFilmtype" />
   </div>
 </template>
 
 <script>
 import comingSoon from '../../components/comingSoon'
 import nowPlaying from '../../components/nowPlaying'
+// import BScroll from 'better-scroll'
 
 export default {
   name: 'Films',
@@ -53,6 +81,23 @@ export default {
       this.curFilmtype = type
     }
   }
+  // mounted () {
+  //   let bs = new BScroll(this.$refs.box, {
+  //     probeType: 1,
+  //     pullUpLoad: true // 开启上拉加载更多
+  //   })
+  //   bs.on('scroll', () => {
+  //     console.log(123)
+  //   })
+
+  //   bs.on('pullingUp', () => {
+  //     console.log(456)
+  //     // this.getFilmList({
+  //     //   type:newVal === 'nowPlaying',
+
+  //     // })
+  //   })
+  // }
 }
 </script>
 

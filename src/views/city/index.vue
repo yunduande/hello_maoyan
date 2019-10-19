@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapState, mapGetters } from 'vuex'
 
 export default {
   name: 'City',
@@ -125,7 +125,6 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
-    ...mapMutations(['city', 'setCityId']),
 
     goBack() {
       this.$router.back()

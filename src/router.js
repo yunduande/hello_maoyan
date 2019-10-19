@@ -72,7 +72,7 @@ const router = new Router({
       component: Search
     },
     {
-      path: '/cinemasDetail',
+      path: '/cinemasDetail/:id',
       component: CinemasDetail
     }
   ]

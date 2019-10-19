@@ -1,8 +1,13 @@
 <template>
   <router-link to="/film/:id" class="film-list">
     <!-- <h2>即将上映</h2> -->
-    <ul>
-      <li v-for="item in filmList" :key="item.id">
+
+    <ul v-for="item in filmList" :key="item.id">
+      <!-- 星期几上映 -->
+      <!-- :style="{visibility:time === "item.comingTitle"?'hidden' : 'initial' -->
+      <span v-if="item.comingTitle === '10月25日 周五'" class="fir"></span>
+      <span class="week" v-else>{{ item.comingTitle }}</span>
+      <li>
         <div class="left">
           <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
           <img :src="item.img | formatImg" alt />
@@ -10,14 +15,14 @@
         <div class="center">
           <div class="name">{{ item.nm }}</div>
           <div class="grade">
-            观众评分：
-            <span>{{ item.sc }}</span>
+            <span>{{ item.wish }}</span>人想看
           </div>
           <div class="actor">主演：{{ item.star }}</div>
-          <div class="show-info">{{ item.showInfo }}</div>
+          <div class="show-info">{{ item.rt }}上映</div>
         </div>
-        <router-link to="/film/:id" class="right">
-          <button>购票</button>
+        <router-link to="/place" class="right">
+          <button v-if="item.sc !== 0" class="now">购票</button>
+          <button v-else class="wait">想看</button>
         </router-link>
       </li>
     </ul>
@@ -34,22 +39,18 @@ export default {
     ...mapState('movie', ['filmList'])
   },
   filters: {
-    formatImg(value) {
+    formatImg (value) {
       return value.replace('w.h', '128.180')
     }
   },
   methods: {
     ...mapActions('movie', ['getMovieList'])
+    // goBack() {
+    //   this.$router.back()
+    // }
   },
-  // created() {
-  //   axios.get('/ajax/movieOnInfoList?token=').then(response => {
-  //     let result = response.data
-  //     // console.log(result)
-  //     let filmList = result.movieList
-  //     this.getFilmList()
-  //   })
-  // }
-  created() {
+
+  created () {
     this.getMovieList()
     console.log(this.$store)
   }
@@ -61,6 +62,13 @@ export default {
 
 .film-list {
   // @include border-top;
+  .week {
+    display: block;
+    height: 31px;
+    padding: 12px 0 0 15px;
+    color: #666;
+    box-sizing: border-box;
+  }
   li {
     position: relative;
 
@@ -76,6 +84,7 @@ export default {
       padding-right: 14px;
       img {
         height: 100%;
+        width: 100%;
       }
     }
     // 主演  电影名
@@ -101,6 +110,7 @@ export default {
           color: #faaf00;
           font-size: 15px;
           font-weight: 700;
+          margin-right: 3px;
         }
       }
       .actor {
@@ -129,13 +139,23 @@ export default {
       position: absolute;
       right: 33px;
 
-      button {
+      .now {
         height: 27px;
         width: 47px;
         border: none;
         background: #f03d37;
         color: white;
         border: 1px solid #f03d37;
+        border-radius: 3px;
+        font-size: 12px;
+      }
+      .wait {
+        height: 27px;
+        width: 47px;
+        border: none;
+        background: #faaf00;
+        color: white;
+        border: 1px solid #faaf00;
         border-radius: 3px;
         font-size: 12px;
       }

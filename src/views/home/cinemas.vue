@@ -7,15 +7,15 @@
     </div>
     <!-- 影院地区，搜索 -->
     <div class="cinemas-serch">
-     <div class="city-enty">
-       <span class="city-name" >
+     <div class="city-enty" >
+       <span class="city-name">
          <router-link to="../city">深圳</router-link>
        </span>
        <i class="iconfont iconxiajiantou_huaban"></i>
      </div>
      <div class="place-serch">
        <!-- <input type="text" placeholder="搜索影院关键词" v-model="serchVal"> -->
-       <van-search placeholder="搜索影院关键词" v-model="serchVal" />
+       <router-link to="/search"><van-search placeholder="搜索影院关键词" v-model="serchVal" /></router-link>
      </div>
     </div>
     <!-- 下拉列表和影院列表 -->
@@ -49,7 +49,7 @@
       <div class="page-cinemas-list" style="overflow-x:hidden">
         <div class="list-detail" >
             <div class="cinemas-detail" v-for="item in cinemasList" :key="item.id">
-              <router-link to='/cinemasDetail'>
+              <router-link :to="`/cinemasDetail/${item.id}`">
                  <div class="box-middle">
                     <div class="cinemas-title">
                       <span>{{item.nm}}</span>
@@ -85,17 +85,13 @@
   </div>
 </template>
 <script>
-// import cinemasList from '../../components/cinemasList.vue'
-// import { mapActions } from 'vuex'
 import axios from 'axios'
 export default {
   name: 'Cinemes',
-  // components:{
-  //   cinemasList
-  // },
   data () {
     return {
       cinemasList:[],
+      locationList:[],
       id:111,
       serchVal: '',
       value1: 0,
@@ -103,46 +99,112 @@ export default {
       value3: 'A',
       option1: [
         { text: '全城', value: 0 },
-        { text: '新款商品', value: 1 },
-        { text: '活动商品', value: 2 }
       ],
       option2: [
         { text: '品牌', value: 'a' },
-        { text: '好评排序', value: 'b' },
-        { text: '销量排序', value: 'c' }
       ],
       option3: [
         { text: '特色', value: 'A' },
-        { text: '好评排序', value: 'B' },
-        { text: '销量排序', value: 'C' }
       ]
-    }
-   },
-   created () {
+     }
+    },
+  created () {
      let _this=this
-    axios.get("/maoyan/ajax/cinemaList?day=2019-10-16&offset=0&limit=20&districtId=-1&lineId=-1&hallType=-1&brandId=-1&serviceId=-1&areaId=-1&stationId=-1&item=&updateShowDay=true&reqId=1571191114871&cityId=30",{
+    //  console.log(this.$route)
+     axios.get("/maoyan/ajax/cinemaList?",{
        params: {
-        day: 2019-10-16,
+        // day: 2019-10-16,
+        // offset: 0,
+        // limit: 20,
+        // districtId: -1,
+        // lineId: -1,
+        // hallType: -1,//影院配置
+        // brandId: -1,
+        // serviceId: -1,
+        // areaId: -1,
+        // stationId: -1,
+        // item:'',
+        // updateShowDay: true,
+        // reqId: 1571191114871,
+        // cityId: 30//城市ID
+        day: 2019-10-18,
         offset: 0,
         limit: 20,
-        districtId: -1,
+        districtId: 23420,
         lineId: -1,
-        hallType: -1,//影院配置
+        hallType: -1,
         brandId: -1,
         serviceId: -1,
         areaId: -1,
         stationId: -1,
-        item:'',
-        updateShowDay: true,
-        reqId: 1571191114871,
-        cityId: 30//城市ID
+        item: '',
+        updateShowDay: false,
+        reqId: 1571388626611,
+        cityId: 30
       }
-    }
-   ).then(response =>{
+     }).then(response =>{
       _this.cinemasList= response.data.cinemas
       // console.log(_this.cinemasList)
+     })
+     axios.get("/maoyan/ajax/filterCinemas?",{
+       params:{
+         ci:30
+      }
+    }).then(response =>{
+      _this.locationList = response.data
+      //数据处理
+      //地区
+      console.log(_this.locationList)
+      let arr = _this.locationList.district.subItems
+      //品牌
+      let brr = _this.locationList.brand.subItems
+      //服务
+      let crr = _this.locationList.hallType.subItems
+      //地区一层层剥开
+      let a=[]
+      let b=[]
+      let c=[]
+      arr.forEach(element => {
+        a.push(element.name)
+      });
+      a.forEach(element => {
+         b.push({text:element,value:String(element)})
+      });
+      //复制元素从第二项开始
+      c= b.slice(1);
+      c.forEach(element => {
+       _this.option1.push(element)
+      });
+      //品牌一层层剥开
+      let aa = []
+      let ab = []
+      let ac = []
+      brr.forEach(element =>{
+        aa.push(element.name)
+      });
+      aa.forEach(element => {
+         ab.push({text:element,value:String(element)})
+      });
+      ac= ab.slice(1);
+      ac.forEach(element => {
+       _this.option2.push(element)
+      });
+      //特色一层层剥开
+      let ba = []
+      let bb = []
+      let bc = []
+      crr.forEach(element =>{
+        ba.push(element.name)
+      });
+      ba.forEach(element => {
+         bb.push({text:element,value:String(element)})
+      });
+      bc= bb.slice(1);
+      bc.forEach(element => {
+       _this.option3.push(element)
+      });
     })
-  }
+   }
 }
 </script>
 <style lang="scss" scoped>

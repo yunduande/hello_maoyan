@@ -26,6 +26,29 @@
             </div>
             <div class="discount">
               <span class="icon">折扣卡</span>
+              <span class="num">
+                 ￥33.9
+              </span>
+            </div>
+          </div>
+          <div class="item-button">购票</div>
+        </li>
+        <li >
+          <div class="item-time">
+            <div class="film-start">10:20</div>
+            <div class="film-end">12:11散场</div>
+          </div>
+          <div class="item-location">
+            <div class="type">国语</div>
+            <div class="location">5号厅</div>
+          </div>
+          <div class="item-price">
+            <div class="price">
+              <span class="d">￥</span>
+              <span class="sellPr">36.9</span>
+            </div>
+            <div class="discount">
+              <span class="icon">折扣卡</span>
               <span class="num">￥33.9</span>
             </div>
           </div>
@@ -86,30 +109,22 @@
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'
-
 export default {
-  name: 'firstList',
-  // data(){
-  //   return{
-  //     a:'',
-  //     b:''
-  //   }
-  // },
-  methods: {
-    ...mapActions('date', ['getfilmsDateList'])
-    // fn1(){
-    //       filmsDateList.forEach(element => {
-    //          this.a=element
-    //         console.log( this.a)
-    //       });
-    //       this.b=a.shows[0].plist[0].lang
-    // }
+  name:'firstList',
+  methods:{
+    ...mapActions('date',['getfilmsDateList'])
+  },
+  filters: {
+    formatImg(value) {
+      return value.replace('w.h', '128.180')
+    }
   },
   computed: {
     ...mapState('date', ['filmsDateList'])
   },
   created() {
     this.getfilmsDateList()
+    // console.log(this.filmsDateList)
     // this.fn1()
   }
 }
@@ -207,8 +222,9 @@ export default {
         .d {
           font-size: 11px;
         }
-        .sellPr {
-          font-size: 19px;
+        .sellPr{
+          font-size:19px;
+          color:#f03d37;
         }
       }
       .discount {
@@ -239,10 +255,10 @@ export default {
       margin-left: 15px;
       height: 27px;
       line-height: 27px;
-      font-size: 12px;
-      background-color: #f03d37;
-      color: #fff;
-      border: 1px solid #777;
+      font-size:12px;
+      background-color:#f03d37;
+      color:#fff;
+      border:1px solid #f03d37;
       border-radius: 4px;
       text-align: center;
     }

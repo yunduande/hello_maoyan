@@ -1,32 +1,37 @@
 <template>
-  <router-link to="/film/:id" class="film-list">
+  <div class="film-list">
     <!-- <h2>正在热映</h2> -->
     <ul>
-      <li v-for="item in filmList" :key="item.id">
-        <div class="left">
-          <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
-          <img :src="item.img | formatImg " alt />
-        </div>
-        <div class="center">
-          <div class="name">{{ item.nm }}</div>
-          <div class="grade">
-            观众评分：
-            <span>{{ item.sc }}</span>
+      <router-link :to="`/film/${item.id}`" v-for="item in filmList" :key="item.id">
+        <li>
+          <div class="left">
+            <!-- <img src="http://p0.meituan.net/w.h/movie/cddf92d0ac6a0db837a1bc488b241c42267927.jpg" /> -->
+            <img :src="item.img | formatImg " alt />
           </div>
-          <div class="actor">主演：{{ item.star }}</div>
-          <div class="show-info">{{ item.showInfo }}</div>
-        </div>
-        <div class="right">
-          <router-link to="/film/:id">
-            <!-- <button :v-if="`${item.sc!== 0}`" v-show="!isShow">购票</button> -->
-            <!-- <button :v-else-if="`${item.sc === 0}`" v-show="!isShow">预售</button> -->
-            <button v-if="isShow" :isShow="fn1" class="now">购票</button>
-            <button v-else class="wait">预购</button>
-          </router-link>
-        </div>
-      </li>
+          <div class="center">
+            <div class="name">{{ item.nm }}</div>
+            <div class="grade">
+              观众评分：
+              <span>{{ item.sc }}</span>
+            </div>
+            <div class="actor">主演：{{ item.star }}</div>
+            <div class="show-info">{{ item.showInfo }}</div>
+          </div>
+          <div class="right">
+            <router-link :to="`/film/${item.id}`" v-if="item.sc !== 0">
+              <!-- <button :v-if="`${item.sc!== 0}`" v-show="!isShow">购票</button> -->
+              <!-- <button :v-else-if="`${item.sc === 0}`" v-show="!isShow">预售</button> -->
+              <button class="now">购票</button>
+              <component :is="btn" />
+            </router-link>
+            <router-link to="/place" v-else>
+              <button class="wait">预购</button>
+            </router-link>
+          </div>
+        </li>
+      </router-link>
     </ul>
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -43,24 +48,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('film', ['getFilmList']),
-    fn1() {
-      if (filmList.sc === 0) {
-        return true
-      } else {
-        return false
-      }
-    }
-  },
-  data() {
-    return {
-      isShow: ''
-    }
+    ...mapActions('film', ['getFilmList'])
   },
 
   created() {
     this.getFilmList()
-    console.log(this.$store)
+    // console.log(this.$store)
   }
 }
 </script>
@@ -84,6 +77,7 @@ export default {
       padding-right: 14px;
       img {
         height: 100%;
+        width: 100%;
       }
     }
     // 主演  电影名

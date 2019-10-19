@@ -19,9 +19,9 @@ export default {
     getInfo ({ commit }, payload) {
       console.log('你进来没有,介绍一下自己')
       axios
-        .get('/maoyan/ajax/detailmovie?', {
+        .get('/maoyan/ajax/detailmovie?movieId=503342', {
           params: {
-            movieId: this.$route.id
+            // movieId: this.$route.id
           },
           headers: {
             'X-Client-Info':

@@ -22,7 +22,7 @@
               <!-- <button :v-if="`${item.sc!== 0}`" v-show="!isShow">购票</button> -->
               <!-- <button :v-else-if="`${item.sc === 0}`" v-show="!isShow">预售</button> -->
               <button class="now">购票</button>
-              <component :is="btn" />
+              <!-- <component :is="btn" /> -->
             </router-link>
             <router-link to="/place" v-else>
               <button class="wait">预购</button>

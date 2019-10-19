@@ -21,7 +21,7 @@
           <!-- 左大半部分 -->
           <div class="left">
             <div class="poster">
-              <img :src="info.albumImg | formatImg" />
+              <img :src="info.albumImg " />
             </div>
             <div class="middle">
               <div class="nm">{{ info.nm }}</div>
@@ -115,11 +115,11 @@ export default {
     ...mapState('cinemas', ['cinemasList']),
     ...mapState('introduce', ['info'])
   },
-  filters: {
-    formatImg (value) {
-      return value.replace('w.h', '128.180')
-    }
-  },
+  // filters: {
+  //   formatImg (value) {
+  //     return value.replace('w.h', '128.180')
+  //   }
+  // },
   methods: {
     ...mapActions('cinemas', ['getCinemasList']),
     ...mapActions('introduce', ['getInfo']),

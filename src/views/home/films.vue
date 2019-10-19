@@ -33,27 +33,14 @@
         </router-link>
       </div>
 
-    <div class="tabs">
+
       <!-- 城市选择 -->
-      <router-link to="/city" class="left">
-        深圳
-        <span class="iconfont iconxiajiantou_huaban"></span>
-      </router-link>
-      <!-- tabs 切换 -->
-      <ul>
-        <!-- 这时active是写死的，我们想办法让她和什么变化的东西联系起来 -->
-        <li :class="{'active':curFilmtype === 'nowPlaying'}" @click="chgFilmtype('nowPlaying')">正在热映</li>
-        <li :class="{'active':curFilmtype === 'comingSoon'}" @click="chgFilmtype('comingSoon')">即将上映</li>
-        <div class="active-line" :style="{'left':curFilmtype === 'nowPlaying'?'0':'50%'}">
-          <span></span>
-        </div>
-      </ul>
-      <!-- 搜索 -->
-      <router-link to="/search" class="right">
-        <span class="iconfont iconsousu"></span>
-      </router-link>
+
+
+
       <component :is="curFilmtype" />
-    </div>
+
+  </div>
   </div>
 </template>
 

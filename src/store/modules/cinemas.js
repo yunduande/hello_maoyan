@@ -1,3 +1,4 @@
+
 import axios from 'axios'
 
 export default {
@@ -20,21 +21,24 @@ export default {
       console.log('你进来没有')
       axios
         .post(`/maoyan/ajax/movie?forceUpdate=${new Date().getTime()}`, {
-          movieId: 503342,
-          day: '2019-10-18',
-          offset: 0,
-          limit: 20,
-          districtId: -1,
-          lineId: -1,
-          hallType: -1,
-          brandId: -1,
-          serviceId: -1,
-          areaId: -1,
-          stationId: -1,
-          item: '',
-          updateShowDay: true,
-          reqId: 1571408224318,
-          cityId: 10
+          // .post('/maoyan/ajax/movie?', {
+          params: {
+            movieId: 503342,
+            day: '2019-10-18',
+            offset: 0,
+            limit: 20,
+            districtId: -1,
+            lineId: -1,
+            hallType: -1,
+            brandId: -1,
+            serviceId: -1,
+            areaId: -1,
+            stationId: -1,
+            item: '',
+            updateShowDay: true,
+            reqId: 'random',
+            cityId: 10
+          }
         })
         .then(response => {
           let result = response.data

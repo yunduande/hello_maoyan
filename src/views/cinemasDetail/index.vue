@@ -5,43 +5,43 @@
       <div class="head">
          <i class="iconfont iconmjiantou-copy"></i>
          <router-link to='/cinemas'>
-           <span class="detail-title">橙天国际影城（嘉邻中心双机巨幕店)</span>
+           <span class="detail-title">{{cinemasName.nm}}</span>
          </router-link>
       </div>
       <div class="dev-location">
-          <div class="location-left">
-            <span class="first-title">橙天国际影城（嘉邻中心双机巨幕店)</span>
-            <span class="second-title">坪山区坪山新区坑梓街道翠景路56号嘉邻中心三楼</span>
+          <div class="location-left" >
+            <span class="first-title">{{cinemasName.nm}}</span>
+            <span class="second-title">{{cinemasName.addr}}</span>
           </div>
           <div class="location-right">
              <i class="iconfont icondizhi2"></i>
           </div>
       </div>
-      <div class="film-banner">
+      <div class="film-banner" v-for="(item,index) in filmsPic" :key="index" >
          <div class="film-pic">
-             <div class="swiper-container">
-                <div class="swiper-wrapper">
-                  <div class="swiper-slide">Slide 1</div>
-                  <div class="swiper-slide">Slide 2</div>
+             <div class="swiper-container" >
+                <div class="swiper-wrapper" >
+                  <div class="swiper-slide" v-for="(item,index) in filmsPic" :key="index"><img :src="item.img | formatImg" alt="" style="width:73px;height:109px;"></div>
+                  <!-- <div class="swiper-slide">Slide 2</div>
                   <div class="swiper-slide">Slide 3</div>
                   <div class="swiper-slide">Slide 4</div>
                   <div class="swiper-slide">Slide 5</div>
-                  <div class="swiper-slide">Slide 6</div>
+                  <div class="swiper-slide">Slide 6</div> -->
                 </div>
             </div>
          </div>
-         <div class="film-mom">
-           <div class="movie-title">
-             <span class="title">中国机长</span>
+         <div class="film-mom" >
+           <div class="movie-title" >
+             <span class="title">{{item.nm}}</span>
              <span class="grade">
                <span>
-                 9.4
+                {{item.sc}}
                  <span class="store">分</span>
                </span>
              </span>
            </div>
            <div class="movie-desc">
-                111分钟 | 剧情 | 张涵予,欧豪,杜江
+                {{item.desc}}
            </div>
          </div>
       </div>
@@ -62,6 +62,7 @@
 import firstList from '../../components/firstList'
 import secondList from '../../components/secondList'
 import Swiper from 'swiper'
+import axios from 'axios'
 import 'swiper/dist/css/swiper.css'
 export default {
   name: 'filmsDate',
@@ -69,10 +70,40 @@ export default {
     firstList,
     secondList
   },
+   filters: {
+    formatImg(value) {
+      return value.replace('w.h', '128.180')
+    }
+  },
   data(){
     return{
-      curFilmsDate:'firstList' //当前影片上映日期
+      curFilmsDate:'firstList', //当前影片上映日期
+      filmsPic:[],//电影图片
+      snackSell:[],//套餐组合
+      cinemasName:[]//影院名字
     }
+  },
+  created(){
+
+    let _this = this
+    console.log(this.$route)
+    axios.get("/maoyan/ajax/cinemaDetail?",{
+      params:{
+        cinemaId:this.$route.params.id
+      }
+    }).then(response =>{
+      let result = response.data
+      // console.log(result)
+      _this.cinemasName = result.cinemaData
+      console.log(result)
+      _this.filmsPic = result.showData.movies
+      console.log(_this.cinemasName)
+      console.log(_this.filmsPic)
+
+      this.$nextTick(() => {
+        _this.fn1()
+      })
+    })
   },
   methods:{
     chgFilmsDate(date){
@@ -90,9 +121,6 @@ export default {
       },
     });
     }
-  },
-   mounted () {
-      this.fn1()
   }
 }
 </script>
@@ -180,11 +208,13 @@ html,body{
       }
     }
     .film-banner{
-
+      height:210px;
+      width:100%;
+      overflow:hidden;
       // background: pink;
       .film-pic{
         height: 135px;
-        background: blue;
+        background: #999;
       }
       .film-mom{
         height:66px;

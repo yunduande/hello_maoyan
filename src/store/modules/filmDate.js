@@ -27,14 +27,9 @@ export default {
         })
         .then(response => {
           let result = response.data
-          commit('setfilmsDateList', result.showData.movies)
-          // let a=''
-          // result.showData.movies.forEach(element => {
-          //   a=element
-          //   console.log(a)
-          // });
-          // let b=a.shows[0].plist[0].lang
-          // console.log(a.shows[0].plist[0].lang)
+          commit('setfilmsDateList', result.dealList)
+          console.log(result.dealList)
+          console.log(result)
         })
     }
   }

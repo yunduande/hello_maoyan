@@ -35,7 +35,6 @@
   </div>
 </template>
 
-
 <script>
 import axios from 'axios'
 export default {
@@ -51,8 +50,8 @@ export default {
       let btn = document.getElementById('btn')
       let uval = user.value
       let flaguser = false
-      let pwd = document.getElementById('pwd')
-      let pval = pwd.value
+      let password = document.getElementById('pwd')
+      let pval = password.value
       let flagpwd = false
       let userpass = /^1(3|4|5|6|7|8|9)\d{9}$/
       btn.onclick = function() {
@@ -79,7 +78,7 @@ export default {
 
       function checkpwd() {
         let pwdpass = /^\d{5,10}$/
-        //密码验证
+        // 密码验证
         if ((pval === '' && uval !== '') || pval === '') {
           flagpwd = false
           alert('密码不能为空')

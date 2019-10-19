@@ -85,14 +85,9 @@
   </div>
 </template>
 <script>
-// import cinemasList from '../../components/cinemasList.vue'
-// import { mapActions } from 'vuex'
 import axios from 'axios'
 export default {
   name: 'Cinemes',
-  // components:{
-  //   cinemasList
-  // },
   data () {
     return {
       cinemasList:[],
@@ -110,14 +105,10 @@ export default {
       ],
       option3: [
         { text: '特色', value: 'A' },
-        // { text: '全部', value: 'C' },
-        // { text: '小吃', value: 'B' },
-        // { text: '可改签', value: 'D' },
-        // { text: '退票', value: 'E' },
       ]
-    }
-   },
-   created () {
+     }
+    },
+  created () {
      let _this=this
     //  console.log(this.$route)
      axios.get("/maoyan/ajax/cinemaList?",{

@@ -17,7 +17,7 @@ export default {
   },
   actions: {
     getMovieList({ commit }, payload) {
-      console.log('你进来没有，快开始了')
+      // console.log('你进来没有，快开始了')
       axios
         .get('/maoyan/ajax/comingList?ci=10&token=&limit=10', {
           headers: {
@@ -28,8 +28,8 @@ export default {
         })
         .then(response => {
           let result = response.data
-          console.log(result)
-          console.log('你啥时候才能上映啊？')
+          // console.log(result)
+          // console.log('你啥时候才能上映啊？')
           commit('setFilmList', result.coming)
           // if (result.status === 0) {
           //   console.log(result.movieList)

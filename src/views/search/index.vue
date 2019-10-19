@@ -28,7 +28,7 @@
           </li>
           <li class="search-list">
             <i class="iconfont iconshijian"></i>
-            <span>凤凰</span>
+            <span>biu</span>
             <div class="iconfont iconshanchu" style="
     margin-left: 250px"></div>
           </li>
@@ -39,26 +39,24 @@
 </template>
 
 <script>
-
 export default {
   name: 'City',
-  data() {
+  data () {
     return {
       searchVal: ''
     }
   },
   methods: {
-    //返回上一页
-    goBack() {
+    // 返回上一页
+    goBack () {
       this.$router.back()
     },
-    remove() {
+    remove () {
       remove(this)
     }
-  },
+  }
 }
 </script>
-
 
 <style lang="scss">
 .page-search {

@@ -19,12 +19,22 @@ export default {
     getCinemasList({ commit }, payload) {
       console.log('你进来没有')
       axios
-        .post('/maoyan/ajax/movie?forceUpdate=1571206630428', {
-          headers: {
-            'X-Client-Info':
-              '{"a":"3000","ch":"1002","v":"5.0.4","e":"156999712018279380812110"}',
-            'X-Host': 'mall.film-ticket.city.list'
-          }
+        .post(`/maoyan/ajax/movie?forceUpdate=${new Date().getTime()}`, {
+          movieId: 503342,
+          day: '2019-10-18',
+          offset: 0,
+          limit: 20,
+          districtId: -1,
+          lineId: -1,
+          hallType: -1,
+          brandId: -1,
+          serviceId: -1,
+          areaId: -1,
+          stationId: -1,
+          item: '',
+          updateShowDay: true,
+          reqId: 1571408224318,
+          cityId: 10
         })
         .then(response => {
           let result = response.data

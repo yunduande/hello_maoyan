@@ -23,13 +23,6 @@
           </div>
         </section>
         <section>
-          <div id="history" class="city-title">最近访问的城市</div>
-          <div class="city-list-inline">
-            <div class="city-item">鞍山</div>
-            <div class="city-item">安庆</div>
-          </div>
-        </section>
-        <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
             <div class="city-item" v-for="city in hotList" :key="city.cityId">{{ city.name }}</div>
@@ -55,7 +48,6 @@
       <div class="right">
         <ul>
           <li id="locate" @click="fn2()">定位</li>
-          <li id="history" @click="fn3()">最近</li>
           <li id="hot" @click="fn4()">热门</li>
           <li v-for="item in pys" :key="item" @click="fn1(item)">{{ item }}</li>
         </ul>
@@ -80,7 +72,7 @@ export default {
   name: 'City',
   namespaced: true,
 
-  data() {
+  data () {
     return {
       searchVal: '',
       cancelText: '',
@@ -88,7 +80,7 @@ export default {
     }
   },
   watch: {
-    searchVal() {
+    searchVal () {
       this.showSearchList = true
     }
   },
@@ -98,7 +90,7 @@ export default {
     ...mapGetters('city', ['cityList', 'pys']),
     ...mapGetters('city', ['cityList', 'hotList']),
 
-    searchList() {
+    searchList () {
       if (!this.searchVal) {
         return []
       }
@@ -114,35 +106,35 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     },
-    fn1(py) {
+    fn1 (py) {
       let dom = document.getElementById(`hello-${py}`)
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn2() {
+    fn2 () {
       let dom = document.getElementById('locate')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn3() {
+    fn3 () {
       let dom = document.getElementById('history')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn4() {
+    fn4 () {
       let dom = document.getElementById('hot')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    searchCancel() {
+    searchCancel () {
       this.cancelText = ''
       this.showSearchList = false
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }

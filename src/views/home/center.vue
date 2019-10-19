@@ -60,7 +60,6 @@
   </div>
 </template>
 
-
 <style lang="scss" scoped>
 .page-city-center {
   width: 100%;

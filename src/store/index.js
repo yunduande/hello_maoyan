@@ -5,6 +5,7 @@ import CityModule from './modules/city'
 import FilmModule from './modules/film'
 import CinemasModule from './modules/cinemas'
 import MovieModule from './modules/movie'
+import InforModule from './modules/introduce'
 
 Vue.use(Vuex)
 
@@ -13,7 +14,8 @@ export default new Vuex.Store({
     city: CityModule,
     film: FilmModule,
     cinemas: CinemasModule,
-    movie: MovieModule
+    movie: MovieModule,
+    introduce: InforModule
   },
   state: { title: 'zhangsan' },
   mutations: {},

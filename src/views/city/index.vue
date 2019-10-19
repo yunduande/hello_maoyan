@@ -80,7 +80,7 @@ export default {
   name: 'City',
   namespaced: true,
 
-  data() {
+  data () {
     return {
       searchVal: '',
       cancelText: '',
@@ -88,7 +88,7 @@ export default {
     }
   },
   watch: {
-    searchVal() {
+    searchVal () {
       this.showSearchList = true
     }
   },
@@ -98,7 +98,7 @@ export default {
     ...mapGetters('city', ['cityList', 'pys']),
     ...mapGetters('city', ['cityList', 'hotList']),
 
-    searchList() {
+    searchList () {
       if (!this.searchVal) {
         return []
       }
@@ -114,35 +114,35 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     },
-    fn1(py) {
+    fn1 (py) {
       let dom = document.getElementById(`hello-${py}`)
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn2() {
+    fn2 () {
       let dom = document.getElementById('locate')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn3() {
+    fn3 () {
       let dom = document.getElementById('history')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn4() {
+    fn4 () {
       let dom = document.getElementById('hot')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    searchCancel() {
+    searchCancel () {
       this.cancelText = ''
       this.showSearchList = false
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }

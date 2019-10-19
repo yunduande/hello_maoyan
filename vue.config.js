@@ -1,10 +1,10 @@
 module.exports = {
   devServer: {
     proxy: {
-      "/maoyan": {
-        target: "http://m.maoyan.com",
+      '/maoyan': {
+        target: 'http://m.maoyan.com',
         pathRewrite: {
-          "/maoyan": ""
+          '/maoyan': ''
         },
         changeOrigin: true
       }

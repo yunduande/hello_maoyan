@@ -37,7 +37,7 @@ export default {
     register,
     login
   },
-  data() {
+  data () {
     return {
       tabType: 'login' // 当前的页面组件
     }
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     // 切换当前的页面
-    chgType(type) {
+    chgType (type) {
       this.tabType = type
     }
   }

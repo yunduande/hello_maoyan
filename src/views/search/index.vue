@@ -42,23 +42,22 @@
 
 export default {
   name: 'City',
-  data() {
+  data () {
     return {
       searchVal: ''
     }
   },
   methods: {
-    //返回上一页
-    goBack() {
+    // 返回上一页
+    goBack () {
       this.$router.back()
     },
-    remove() {
+    remove () {
       remove(this)
     }
-  },
+  }
 }
 </script>
-
 
 <style lang="scss">
 .page-search {

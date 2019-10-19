@@ -17,9 +17,13 @@ export default {
   },
   actions: {
     getFilmList({ commit }, payload) {
-      console.log('你进来没有')
+      // console.log('你进来没有')
       axios
-        .get('/maoyan/ajax/movieOnInfoList?token=', {
+        .get('/maoyan/ajax/movieOnInfoList?', {
+          params: {
+            token: '',
+            id: 503342
+          },
           headers: {
             'X-Client-Info':
               '{"a":"3000","ch":"1002","v":"5.0.4","e":"156999712018279380812110"}',
@@ -28,8 +32,8 @@ export default {
         })
         .then(response => {
           let result = response.data
-          console.log(result)
-          console.log('你在哪')
+          // console.log(result)
+          // console.log('你在哪')
           commit('setFilmList', result.movieList)
           // if (result.status === 0) {
           //   console.log(result.movieList)

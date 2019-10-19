@@ -95,8 +95,8 @@ export default {
   // },
   data () {
     return {
-      cinemasList:[],
-      id:111,
+      cinemasList: [],
+      id: 111,
       serchVal: '',
       value1: 0,
       value2: 'a',
@@ -117,29 +117,29 @@ export default {
         { text: '销量排序', value: 'C' }
       ]
     }
-   },
-   created () {
-     let _this=this
-    axios.get("/maoyan/ajax/cinemaList?day=2019-10-16&offset=0&limit=20&districtId=-1&lineId=-1&hallType=-1&brandId=-1&serviceId=-1&areaId=-1&stationId=-1&item=&updateShowDay=true&reqId=1571191114871&cityId=30",{
-       params: {
-        day: 2019-10-16,
+  },
+  created () {
+    let _this = this
+    axios.get('/maoyan/ajax/cinemaList?day=2019-10-16&offset=0&limit=20&districtId=-1&lineId=-1&hallType=-1&brandId=-1&serviceId=-1&areaId=-1&stationId=-1&item=&updateShowDay=true&reqId=1571191114871&cityId=30', {
+      params: {
+        day: 2019 - 10 - 16,
         offset: 0,
         limit: 20,
         districtId: -1,
         lineId: -1,
-        hallType: -1,//影院配置
+        hallType: -1, // 影院配置
         brandId: -1,
         serviceId: -1,
         areaId: -1,
         stationId: -1,
-        item:'',
+        item: '',
         updateShowDay: true,
         reqId: 1571191114871,
-        cityId: 30//城市ID
+        cityId: 30// 城市ID
       }
     }
-   ).then(response =>{
-      _this.cinemasList= response.data.cinemas
+    ).then(response => {
+      _this.cinemasList = response.data.cinemas
       console.log(_this.cinemasList)
     })
   }

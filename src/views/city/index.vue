@@ -14,6 +14,7 @@
 
     <div class="box" v-if="!showSearchList">
       <div class="left" ref="box">
+        <!-- 定位当前城市 -->
         <section>
           <div id="locate" class="city-title">定位城市</div>
           <div class="city-list-inline">
@@ -22,12 +23,21 @@
             </div>
           </div>
         </section>
+        <!-- 热门城市的获取 -->
         <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
-            <div class="city-item" v-for="city in hotList" :key="city.cityId">{{ city.name }}</div>
+            <router-link
+              tag="div"
+              class="city-item"
+              v-for="city in hotList"
+              :key="city.cityId"
+              @click="cityId(city)"
+              to="/films"
+            >{{ city.name }}</router-link>
           </div>
         </section>
+        <!-- 循环城市列表拼音 -->
         <div
           :id="`hello-${item.py}`"
           class="city-title-letter"
@@ -35,6 +45,7 @@
           :key="item.py"
         >
           <p>{{ item.py }}</p>
+          <!-- 所有城市 -->
           <ul>
             <router-link
               tag="li"
@@ -45,6 +56,7 @@
           </ul>
         </div>
       </div>
+      <!-- 城市列表索引 -->
       <div class="right">
         <ul>
           <li id="locate" @click="fn2()">定位</li>
@@ -54,9 +66,16 @@
       </div>
     </div>
 
+    <!-- 互斥搜索结果页面 -->
     <div class="box" v-else>
       <ul v-if="searchList.length>0">
-        <li v-for="city in searchList" :key="city.cityId" class="findList">{{ city.name }}</li>
+        <router-link
+          tag="li"
+          v-for="city in searchList"
+          :key="city.cityId"
+          to="/films"
+          class="findList"
+        >{{ city.name }}</router-link>
       </ul>
       <div class="noList" v-else>
         <p>没有找到相关内容</p>
@@ -66,7 +85,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapGetters } from 'vuex'
+import { mapActions, mapState, mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'City',
@@ -106,6 +125,8 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
+    ...mapMutations(['city', 'setCityId']),
+
     goBack() {
       this.$router.back()
     },
@@ -132,6 +153,10 @@ export default {
     searchCancel() {
       this.cancelText = ''
       this.showSearchList = false
+    },
+    cityId(item) {
+      this.$store.commit('setCityId', item.cityId)
+      this.$store.commit('setCityName', item.name)
     }
   },
   created() {

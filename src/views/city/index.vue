@@ -14,6 +14,7 @@
 
     <div class="box" v-if="!showSearchList">
       <div class="left" ref="box">
+        <!-- 定位当前城市 -->
         <section>
           <div id="locate" class="city-title">定位城市</div>
           <div class="city-list-inline">
@@ -22,12 +23,21 @@
             </div>
           </div>
         </section>
+        <!-- 热门城市的获取 -->
         <section>
           <div id="hot" class="city-title">热门城市</div>
           <div class="city-list-inline city-host">
-            <div class="city-item" v-for="city in hotList" :key="city.cityId">{{ city.name }}</div>
+            <router-link
+              tag="div"
+              class="city-item"
+              v-for="city in hotList"
+              :key="city.cityId"
+              @click="cityId(city)"
+              to="/films"
+            >{{ city.name }}</router-link>
           </div>
         </section>
+        <!-- 循环城市列表拼音 -->
         <div
           :id="`hello-${item.py}`"
           class="city-title-letter"
@@ -35,6 +45,7 @@
           :key="item.py"
         >
           <p>{{ item.py }}</p>
+          <!-- 所有城市 -->
           <ul>
             <router-link
               tag="li"
@@ -45,6 +56,7 @@
           </ul>
         </div>
       </div>
+      <!-- 城市列表索引 -->
       <div class="right">
         <ul>
           <li id="locate" @click="fn2()">定位</li>
@@ -54,9 +66,16 @@
       </div>
     </div>
 
+    <!-- 互斥搜索结果页面 -->
     <div class="box" v-else>
       <ul v-if="searchList.length>0">
-        <li v-for="city in searchList" :key="city.cityId" class="findList">{{ city.name }}</li>
+        <router-link
+          tag="li"
+          v-for="city in searchList"
+          :key="city.cityId"
+          to="/films"
+          class="findList"
+        >{{ city.name }}</router-link>
       </ul>
       <div class="noList" v-else>
         <p>没有找到相关内容</p>
@@ -72,7 +91,7 @@ export default {
   name: 'City',
   namespaced: true,
 
-  data () {
+  data() {
     return {
       searchVal: '',
       cancelText: '',
@@ -80,7 +99,7 @@ export default {
     }
   },
   watch: {
-    searchVal () {
+    searchVal() {
       this.showSearchList = true
     }
   },
@@ -90,7 +109,7 @@ export default {
     ...mapGetters('city', ['cityList', 'pys']),
     ...mapGetters('city', ['cityList', 'hotList']),
 
-    searchList () {
+    searchList() {
       if (!this.searchVal) {
         return []
       }
@@ -106,35 +125,40 @@ export default {
 
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack () {
+
+    goBack() {
       this.$router.back()
     },
-    fn1 (py) {
+    fn1(py) {
       let dom = document.getElementById(`hello-${py}`)
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn2 () {
+    fn2() {
       let dom = document.getElementById('locate')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn3 () {
+    fn3() {
       let dom = document.getElementById('history')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    fn4 () {
+    fn4() {
       let dom = document.getElementById('hot')
       let top = dom.offsetTop
       this.$refs.box.scrollTop = top
     },
-    searchCancel () {
+    searchCancel() {
       this.cancelText = ''
       this.showSearchList = false
+    },
+    cityId(item) {
+      this.$store.commit('setCityId', item.cityId)
+      this.$store.commit('setCityName', item.name)
     }
   },
-  created () {
+  created() {
     this.getCities()
   }
 }

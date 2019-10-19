@@ -4,11 +4,15 @@ import { Toast } from 'vant'
 export default {
   namespaced: true,
   state: {
-    cities: [] // 所有城市的集合
+    cities: [], // 所有城市的集合
+    cityIdList: [],
+    cityId: 440300,
+    cityName: '深圳'
   },
+
   getters: {
-    cityList (state) {
-      let res = []
+    cityList(state) {
+      let res = [] //获取所有城市
       state.cities.forEach(city => {
         let py = city.pinyin.charAt(0).toUpperCase()
         let index = res.findIndex(item => item.py === py)
@@ -23,34 +27,39 @@ export default {
         }
       })
       return res.sort((a, b) => {
+        //按字母排序
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
 
-    pys (status, getters) {
+    pys(status, getters) {
       return getters.cityList.map(item => item.py)
     },
-    hotList (state) {
-      let rm = []
+    hotList(state) {
+      let hotListcity = [] //获取热门城市空数组
       state.cities.forEach(city => {
-        let sz = city.isHot
-        if (sz > 0) {
-          rm.push(city)
+        let ishotCity = city.isHot
+        if (ishotCity > 0) {
+          hotListcity.push(city)
         }
       })
-      console.log(rm)
-      return rm
+      console.log(hotListcity)
+      return hotListcity
     }
   },
+
   mutations: {
-    setCities (state, payload) {
+    setCities(state, payload) {
       state.cities = payload
+    },
+    setCityId(state, payload) {
+      state.CityId = payload
     }
   },
   actions: {
-    getCities ({ commit }, payload) {
+    getCities({ commit }, payload) {
       Toast.loading({
-        // mask: true,
+        // mask: true,   //整个遮罩层
         message: '加载中',
         duration: 0
       })
